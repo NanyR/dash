@@ -4,6 +4,8 @@ import Inspections from './Inspections.js';
 import Fees from './Fees.js';
 import RecordNav from './RecordNav.js';
 import RecordMain from './RecordMain.js';
+import Workflow from './Workflow.js';
+import Documents from './Documents.js';
 
 import axios from 'axios';
 
@@ -14,12 +16,13 @@ export default class RecordSingle extends Component{
     this.state={
       updated:false,
       asiFields:[],
-      portlet:'Record',
+      portlet:'record',
       location:{},
       contacts:{},
       documents:{},
       inspections:{},
-      fees:{}
+      fees:{},
+      workflowTasks:{}
     }
     this.handleCustomFormsSubmit=this.handleCustomFormsSubmit.bind(this)
     this.handleInputChange=this.handleInputChange.bind(this)
@@ -27,8 +30,9 @@ export default class RecordSingle extends Component{
     this.getRecordInfo=this.getRecordInfo.bind(this);
     this.handleFieldChange= this.handleFieldChange.bind(this);
     // this.handleSectionClick= this.handleSectionClick.bind(this);
-    this.getRecordInfo= this.getRecordInfo.bind(this);
-    this.handleResponse= this.handleResponse.bind(this)
+    this.handleResponse= this.handleResponse.bind(this);
+    this.updatePortlet=this.updatePortlet.bind(this)
+
   }
 
 
@@ -38,6 +42,7 @@ export default class RecordSingle extends Component{
     axios.post(`http://localhost:3001/${param}`,
       {record}
     ).then(function(data){
+      debugger
       this.handleResponse(param, data.data)
     }.bind(this))
     .catch(err=>{
@@ -53,11 +58,19 @@ export default class RecordSingle extends Component{
           location:Object.keys(data[0]).length > 0 ? Object.assign({}, data[0].addresses[0]): {},
           contacts: Object.keys(data[1]).length > 0 ? Object.assign({}, data[1].contacts): {},
           owners:Object.keys(data[2]).length > 0 ? Object.assign({}, data[2].owners): {}
+        },()=>{
+          this.setState({
+            portlet:'record'
+          })
         })
         break;
       default:
         this.setState({
           [param]: Object.assign({}, data)
+        },()=>{
+          this.setState({
+            portlet:param
+          })
         })
     }
   }
@@ -120,17 +133,17 @@ export default class RecordSingle extends Component{
   }
 
 
+
   handleButtonClick(e){
     e.preventDefault();
     let action= e.target.innerText;
-    this.setState({
-      portlet: action
-    })
+    this.getRecordInfo(action.toLowerCase(), this.props.recDetails.id)
+
   }
 
   updatePortlet(){
     switch (this.state.portlet) {
-      case 'Record':
+      case 'record':
         return(
           <RecordMain
           openedDate={this.props.recDetails.openedDate}
@@ -141,19 +154,39 @@ export default class RecordSingle extends Component{
           />
         );
           break;
-        case 'Inspections':
+      case 'inspections':
+            return (
+            <Inspections
+            list={this.state.inspections}
+            />
+            )
+          break;
+      case 'fees':
         return (
-          <Inspections
-          list={this.state.inspections}
+          <Fees
+          feesList={this.state.fees}
           />
         )
-        break;
-      default:
-
+          break;
+      case 'processing status details':
+          return (
+              <Workflow
+              tasks={this.state.workflowTasks}
+              />
+          )
+          break;
+      case 'documents':
+          return (
+              <Documents
+              tasks={this.state.list}
+              />
+          )
+          break;
     }
   }
 
   render(){
+    const portlet= this.updatePortlet();
       // const asi=this.state.asiFields.map((group, index)=>{
       //   return(<ASIGroup info={group} key={index} canEdit={this.props.canEdit} handleCustomFormsSubmit={this.handleCustomFormsSubmit} handleInputChange={this.handleInputChange}/>)
       // })
@@ -169,16 +202,8 @@ export default class RecordSingle extends Component{
             portlet={this.state.portlet}
             handleButtonClick={this.handleButtonClick} />
             }
-          {this.state.portlet === 'Record' ?
-              <RecordMain
-              openedDate={this.props.recDetails.openedDate}
-              description={this.props.recDetails.description}
-              addresses={this.props.recDetails.main[0]}
-              contacts={this.props.recDetails.main[1]}
-              owners={this.props.recDetails.main[2]}
-              />
-            : null}
 
+            {portlet}
 
         </div>
       )

@@ -5,7 +5,7 @@ import React, {Component} from 'react'
 //export default class Inspections extends Component{
 
 const Inspections= (props)=>{
-    const inspectionsList = props.list ? props.list.map((insp, index)=>{
+    const inspectionsList = props.list.inspections.length>0 ? props.list.inspections.map((insp, index)=>{
       return(
         <tr key={index}>
           <td>{insp['type']['value']}</td>

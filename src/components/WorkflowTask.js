@@ -1,10 +1,10 @@
 import React from 'react';
 
 
-const WorkflowTask => (props)=>{
+const WorkflowTask = (props)=>{
 
 
-  return(){
+  return(
       <div>
         <div>{props.info["description"]}</div>
         <div>{props.info["status"]["value"]}</div>
@@ -14,6 +14,9 @@ const WorkflowTask => (props)=>{
           <div>Edited on: {props.info["statusDate"]} </div>
         </div> : null}
       </div>
-  }
+  )
 
 }
+
+
+export default WorkflowTask;

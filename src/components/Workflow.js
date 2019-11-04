@@ -2,7 +2,8 @@ import React from 'react'
 import WorkflowTask from './WorkflowTask.js'
 
 
-export default class Workflow extends Component{
+// export default class Workflow extends Component{
+const Workflow=(props)=>{
 
   const workflowTasks=props.tasks.map((task, index)=>{
       return(

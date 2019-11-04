@@ -32,4 +32,4 @@ const Documents=(props)=>{
 
 }
 
-export Documents
+export default Documents
