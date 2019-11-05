@@ -13,10 +13,15 @@ export default class Input extends Component {
   }
 
   render(){
+    const asiVal= this.props.iValue === 'CHECKED' ? (<input type="checkbox" checked readOnly/>): (  <p>{this.props.iValue || " " }</p>)
     return(
       <div>
-        <label>{this.props.iLabel}</label>
-        <input type={this.props.iType} value={this.props.iValue || " " } onChange={this.handleChange} readOnly={!this.props.canEdit}/>
+        <label>{this.props.iLabel}: </label>
+        {this.props.canEdit ?
+        <input type={this.props.iType} value={this.props.iValue || " " } onChange={this.handleChange} /> :
+        asiVal
+          }
+
       </div>
     )
   }

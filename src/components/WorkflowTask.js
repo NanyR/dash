@@ -6,8 +6,8 @@ const WorkflowTask = (props)=>{
 
   return(
       <div>
-        <div>{props.info["description"]}</div>
-        <div>{props.info["status"]["value"]}</div>
+        <div>{props.info.description}</div>
+        <div>{props.info.status == undefined ? " " :  props.info.status.value}</div>
         { props.complete ?
           <div className="taskdetails">
           <div>Edited by: {props.info["actionbyUser"]["text"]}</div>

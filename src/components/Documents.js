@@ -2,7 +2,7 @@ import React from 'react'
 
 
 const Documents=(props)=>{
-  const documentsList=props.list.map((doc, index)=>{
+  const documentsList=Object.keys(props.docs).length > 0 ? props.docs.documents.map((doc, index)=>{
     return(
       <tr key={index}>
         <td>{doc["entityType"]}</td>
@@ -10,7 +10,7 @@ const Documents=(props)=>{
         <td>{doc["uploadedDate"]}</td>
       </tr>
     )
-  })
+  }) : 'No documents found on this record';
 
     return(
       <div>

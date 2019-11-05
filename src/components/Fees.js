@@ -3,8 +3,8 @@ import MaterialIcon, {colorPalette} from 'material-icons-react';
 
 
 const Fees = (props)=>{
-  debugger
-  const feesList= props.feesList.map((fee, index)=>{
+  
+  const feesList=Object.keys(props.feesList).length>0 ? props.feesList.fees.map((fee, index)=>{
     return (
       <tr>
         <td>{fee.accountCode1}</td>
@@ -13,7 +13,7 @@ const Fees = (props)=>{
         <td>${fee.amount}</td>
       </tr>
     )
-  })
+  }) : 'No fees found on this record'
   return (
     <div>
       <div>
@@ -27,6 +27,7 @@ const Fees = (props)=>{
           <th>Quantity</th>
           <th>Amount</th>
         </tr>
+        {feesList}
       </tbody>
       </table>
     </div>

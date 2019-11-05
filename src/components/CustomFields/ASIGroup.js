@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
-
-import Input from './Input.js';
+import Input from '../Input.js';
 
 export default class ASIGroup extends Component {
 
@@ -38,10 +37,10 @@ export default class ASIGroup extends Component {
 
     return(
       <div>
-        {truncTitle}
+        <header className="groupName">{truncTitle}</header>
         <form onSubmit={this.handleSubmit}>
           {formDetails}
-        {this.props.canEdit ? <button>UPDATE</button> : null}  
+        {this.props.canEdit ? <button>UPDATE</button> : null}
         </form>
       </div>
     )

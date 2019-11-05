@@ -1,6 +1,7 @@
 import React from 'react';
 import Location from './Location.js';
 import Contacts from './Contacts/Contacts.js';
+import ASI from './CustomFields/ASI.js';
 
 const RecordMain= (props)=>{
 
@@ -29,6 +30,7 @@ const RecordMain= (props)=>{
           <Contacts list={props.owners.owners} />
         </section> : null
       }
+      <ASI recordId={props.recordId} canEdit={props.canEdit}/>
     </div>
   )
 

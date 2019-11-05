@@ -8,6 +8,7 @@ import LoginForm from './LoginForm.js'
 import RecordsList from './RecordsList.js'
 import RecordSingle from './RecordSingle.js'
 import Username from './Username.js'
+import Projects from './Projects.js'
 
 
 
@@ -18,7 +19,12 @@ class Dashboard extends Component{
     this.state={
       user:'',
       records:[],
+      building:[],
+      planning:[],
+      serviceReq:[],
       currentRecord:{},
+      currentProject:[],
+      portlet:''
     }
 
     this.handleClick=this.handleClick.bind(this);
@@ -26,20 +32,48 @@ class Dashboard extends Component{
     this.handleLogout=this.handleLogout.bind(this);
     this.updateUser=this.updateUser.bind(this);
     this.handleResponse= this.handleResponse.bind(this);
+    this.changeProject=this.changeProject.bind(this)
   }
 
 
   updateUser(username, records){
+    let building= records.filter(rec =>{
+      return rec.type.module==='Building'
+    })
+    let planning= records.filter(rec=>{
+      return rec.type.module === 'Planning'
+    })
+    let serviceReq=records.filter(rec=>{
+      return rec.type.module==='ServiceRequest'
+    })
     this.setState({
       user:username,
-      records:records
+      records:Object.assign([], records),
+      building:Object.assign([], building),
+      planning:Object.assign([], planning),
+      serviceReq:Object.assign([], serviceReq)
+    })
+  }
+
+  changeProject(e){
+    e.preventDefault();
+    let projectName=e.target.attributes.data.nodeValue;
+    let project = this.state[projectName];
+    this.setState({
+      currentProject:Object.assign([], project)
     })
   }
 
   handleClick(e){
     e.preventDefault();
-    let name=e.target.value;
-    this.props.addProject()
+    let name=e.target.innerText;
+    
+    if(name === 'My Projects'){
+      this.setState({
+        currentProject:Object.assign([], [])
+      })
+    }
+    // this.props.addProject()
   }
 
   getRecordSingle(e){
@@ -68,7 +102,8 @@ class Dashboard extends Component{
     },
     ()=>{
       this.setState({
-        currentRecord: Object.assign({}, this.state.records[idx])
+        currentRecord: Object.assign({}, this.state.records[idx]),
+        portlet:'record'
       })
     })
 
@@ -106,22 +141,29 @@ render(){
               LOGOUT
               </a>
           </button>
-          <RecordsList
-          getRecordInfo={this.getRecordSingle}
-          records={this.state.records}/>
-          <input type='text' value='New Project Name'/>
-          <button onClick={this.handleClick}> ADD NEW PROJECT</button>
+          <button onClick={this.handleClick}>My Projects</button>
+          { this.state.currentProject.length>0 ?
+              <RecordsList
+              getRecordInfo={this.getRecordSingle}
+              records={this.state.currentProject}/> :
+            <Projects building={this.state.building}
+            planning={this.state.planning}
+            serviceReq={this.state.serviceReq}
+            changeProject={this.changeProject}/>
+          }
+
           {this.state.currentRecord.id ?
             <RecordSingle
-            recDetails={this.state.currentRecord} canEdit={this.state.currentRecord.id.includes('EST')} handleFieldChange={this.handleFieldChange}/>
+            recDetails={this.state.currentRecord} canEdit={this.state.currentRecord.id.includes('EST')} handleFieldChange={this.handleFieldChange}
+            portlet={this.state.portlet}/>
             : null }
 
         </div> :
         <LoginForm updateUser={this.updateUser}/>
       }
     </div>
-    )
-  }
+
+  )}
 
 }
 
