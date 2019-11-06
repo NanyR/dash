@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import MaterialIcon, {colorPalette} from 'material-icons-react';
 
 
 const Documents=(props)=>{
@@ -15,7 +16,7 @@ const Documents=(props)=>{
     return(
       <div>
         <div>
-          <button>Add Document</button>
+          <MaterialIcon icon="note_add">Add Document</MaterialIcon>
         </div>
         <table>
           <tbody>

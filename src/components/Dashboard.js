@@ -9,6 +9,7 @@ import RecordsList from './RecordsList.js'
 import RecordSingle from './RecordSingle.js'
 import Username from './Username.js'
 import Projects from './Projects.js'
+import '../Dashboard.css'
 
 
 
@@ -67,7 +68,7 @@ class Dashboard extends Component{
   handleClick(e){
     e.preventDefault();
     let name=e.target.innerText;
-    
+
     if(name === 'My Projects'){
       this.setState({
         currentProject:Object.assign([], [])
@@ -131,7 +132,7 @@ class Dashboard extends Component{
 
 render(){
   return(
-    <div>
+    <div className="dashboard">
       {this.state.user ?
         <div>
           <Username
