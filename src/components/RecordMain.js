@@ -2,11 +2,12 @@ import React from 'react';
 import Location from './Location.js';
 import Contacts from './Contacts/Contacts.js';
 import ASI from './CustomFields/ASI.js';
+import '../RecordMain.css'
 
 const RecordMain= (props)=>{
 
   return(
-    <div>
+    <div className='record-main'>
       <section>
         <div>
           <label>File Date: </label> <p>{props.openedDate}</p>
@@ -30,7 +31,7 @@ const RecordMain= (props)=>{
           <Contacts list={props.owners.owners} />
         </section> : null
       }
-      <ASI recordId={props.recordId} canEdit={props.canEdit}/>
+      <ASI recordId={props.recordId} canEdit={props.canEdit} className="asi"/>
     </div>
   )
 

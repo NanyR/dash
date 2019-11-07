@@ -4,3 +4,28 @@
   height:100%;
   display:grid;
 }
+
+.main-container{
+  display: flex;
+}
+
+.sideNav{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 100px;
+}
+
+.sideNav i {
+  width:100px;
+  margin:20px auto;
+
+}
+.material-icons.md-24{
+  font-size:40px
+}
+
+.main-dash{
+  flex-grow: 10;
+}

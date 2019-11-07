@@ -3,13 +3,14 @@ import {connect} from 'react-redux';
 import {addProject} from '../actions/projects.js';
 import axios from 'axios';
 import MaterialIcon, {colorPalette} from 'material-icons-react';
+import MainNav from './MainNav.js'
 
 import LoginForm from './LoginForm.js'
 import RecordsList from './RecordsList.js'
 import RecordSingle from './RecordSingle.js'
 import Username from './Username.js'
 import Projects from './Projects.js'
-import '../Dashboard.css'
+import '../Dashboard.css';
 
 
 
@@ -57,11 +58,12 @@ class Dashboard extends Component{
   }
 
   changeProject(e){
-    e.preventDefault();
+    
     let projectName=e.target.attributes.data.nodeValue;
     let project = this.state[projectName];
     this.setState({
-      currentProject:Object.assign([], project)
+      currentProject:Object.assign([], project),
+      currentRecord:Object.assign({}, {})
     })
   }
 
@@ -134,31 +136,33 @@ render(){
   return(
     <div className="dashboard">
       {this.state.user ?
-        <div>
-          <Username
-          username={this.state.user} />
-          <button>
-              <a onClick={this.handleLogout}>
-              LOGOUT
-              </a>
-          </button>
-          <button onClick={this.handleClick}>My Projects</button>
-          { this.state.currentProject.length>0 ?
-              <RecordsList
-              getRecordInfo={this.getRecordSingle}
-              records={this.state.currentProject}/> :
+        <div className="main-container">
+        <MainNav/>
+        <div className="main-dash">
+            <Username
+            username={this.state.user} />
+            <button>
+                <a onClick={this.handleLogout}>
+                LOGOUT
+                </a>
+            </button>
+            <button onClick={this.handleClick}>My Projects</button>
             <Projects building={this.state.building}
             planning={this.state.planning}
             serviceReq={this.state.serviceReq}
             changeProject={this.changeProject}/>
-          }
-
-          {this.state.currentRecord.id ?
-            <RecordSingle
-            recDetails={this.state.currentRecord} canEdit={this.state.currentRecord.id.includes('EST')} handleFieldChange={this.handleFieldChange}
-            portlet={this.state.portlet}/>
-            : null }
-
+            { this.state.currentProject.length>0 ?
+                <RecordsList
+                getRecordInfo={this.getRecordSingle}
+                records={this.state.currentProject}/> :
+                null
+            }
+            {this.state.currentRecord.id ?
+              <RecordSingle
+              recDetails={this.state.currentRecord} canEdit={this.state.currentRecord.id.includes('EST')} handleFieldChange={this.handleFieldChange}
+              portlet={this.state.portlet}/>
+              : null }
+              </div>
         </div> :
         <LoginForm updateUser={this.updateUser}/>
       }

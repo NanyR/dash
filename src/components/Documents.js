@@ -1,9 +1,34 @@
-import React from 'react';
+import React,{Component} from 'react';
 import MaterialIcon, {colorPalette} from 'material-icons-react';
 
 
-const Documents=(props)=>{
-  const documentsList=Object.keys(props.docs).length > 0 ? props.docs.documents.map((doc, index)=>{
+//const Documents=(props)=>{
+
+class Documents extends Component{
+
+  constructor(props){
+    super(props)
+    this.state={
+      val:''
+    }
+    this.handleSelectionChange=this.handleSelectionChange.bind(this)
+    this.handleDoc=this.handleDoc.bind(this)
+  }
+
+  handleSelectionChange(e){
+      e.preventDefault();
+      this.setState({
+        val:e.target.value
+      })
+  }
+
+  handleDoc(e){
+    e.preventDefault();
+    this.props.addDoc(this.state.val)
+  }
+
+  render(){
+  const documentsList=Object.keys(this.props.docs).length > 0 ? this.props.docs.documents.map((doc, index)=>{
     return(
       <tr key={index}>
         <td>{doc["entityType"]}</td>
@@ -12,12 +37,15 @@ const Documents=(props)=>{
       </tr>
     )
   }) : 'No documents found on this record';
-
+  const categories=this.props.categories.documentCategories.length > 0 ? this.props.categories.documentCategories.map((cat, index)=>{
+    return(
+      <option key={index}>
+        {cat.text}
+      </option>
+    )
+  }) : null
     return(
       <div>
-        <div>
-          <MaterialIcon icon="note_add">Add Document</MaterialIcon>
-        </div>
         <table>
           <tbody>
             <tr>
@@ -28,9 +56,15 @@ const Documents=(props)=>{
             {documentsList}
           </tbody>
         </table>
+        <form>
+          <select name="docType" onChange={this.handleSelectionChange} value={this.state.val}>
+            {categories}
+          </select>
+          <MaterialIcon icon="note_add" onClick={this.handleDoc}>Add Document</MaterialIcon>
+        </form>
       </div>
     )
-
+  }
 }
 
 export default Documents

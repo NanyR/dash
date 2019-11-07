@@ -6,6 +6,7 @@ import RecordNav from './RecordNav.js';
 import RecordMain from './RecordMain.js';
 import Workflow from './Workflow.js';
 import Documents from './Documents.js';
+import '../RecordSingle.css'
 
 import axios from 'axios';
 
@@ -22,13 +23,14 @@ export default class RecordSingle extends Component{
       documents:{},
       inspections:{},
       fees:{},
-      processingstatusdetails:{}
+      processingstatusdetails:{},
     }
     this.handleButtonClick=this.handleButtonClick.bind(this)
     this.getRecordInfo=this.getRecordInfo.bind(this);
     this.handleResponse= this.handleResponse.bind(this);
     this.updatePortlet=this.updatePortlet.bind(this)
-
+    this.handleInspectionRequest=this.handleInspectionRequest.bind(this);
+    this.addDocRequest=this.addDocRequest.bind(this);
   }
 
 componentDidUpdate(prevProps, prevState){
@@ -37,6 +39,28 @@ componentDidUpdate(prevProps, prevState){
   }
 }
 
+addDocRequest(type){
+  debugger
+}
+
+
+  handleInspectionRequest(type, date){
+    axios.defaults.withCredentials = true;
+    axios.post(`http://localhost:3001/inspectionRequest`,
+      {
+        "desiredDate": date,
+        "recordId": {
+        "id": this.props.recDetails.id
+        },
+        "type":type
+        }
+    ).then(function(data){
+      debugger
+    }.bind(this))
+    .catch(err=>{
+      console.log(`error`)
+    })
+  }
 
   getRecordInfo(param, record){
     axios.defaults.withCredentials = true;
@@ -44,6 +68,7 @@ componentDidUpdate(prevProps, prevState){
     axios.post(`http://localhost:3001/${param}`,
       {record}
     ).then(function(data){
+
       this.handleResponse(param, data.data)
     }.bind(this))
     .catch(err=>{
@@ -104,7 +129,9 @@ componentDidUpdate(prevProps, prevState){
       case 'inspections':
             return (
             <Inspections
-            list={this.state.inspections}
+            list={this.state.inspections[0]}
+            types={this.state.inspections[1]}
+            handleInspectionRequest={this.handleInspectionRequest}
             />
             )
           break;
@@ -125,7 +152,9 @@ componentDidUpdate(prevProps, prevState){
       case 'documents':
           return (
               <Documents
-              docs={this.state.documents}
+              docs={this.state.documents[0]}
+              categories={this.state.documents[1]}
+              addDoc={this.addDocRequest}
               />
           )
           break;
@@ -137,7 +166,7 @@ componentDidUpdate(prevProps, prevState){
 
 
       return(
-        <div>
+        <div className='RecordSingle'>
           <header>
               <h2>{this.props.recDetails.customId}</h2>
               <h3>{this.props.recDetails.type.alias}</h3>

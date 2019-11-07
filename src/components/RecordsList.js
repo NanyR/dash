@@ -1,5 +1,5 @@
 import React from 'react';
-
+import '../RecordsList.css';
 
 const RecordsList= (props)=>{
   const recordLabels=props.records.map((record, index)=>{
@@ -8,7 +8,8 @@ const RecordsList= (props)=>{
       )
   })
   return(
-    <div>
+    <div className="records-list">
+    <header>Records</header>
       {recordLabels}
     </div>
   )

@@ -21,3 +21,20 @@ input[type="submit"]:hover{
 background-color: #E65B67;
 
 }
+
+
+table{
+  width:650px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-family:'Khula', 'sans-serif';
+  margin:20px auto;
+}
+td{
+    border: 1px solid #ccc;
+
+}
+
+#material{
+  width:48px;
+}

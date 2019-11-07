@@ -1,11 +1,29 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+
+import AddInspection from './AddInspection.js'
+
 
 
 
 //export default class Inspections extends Component{
 
-const Inspections= (props)=>{
-    const inspectionsList = Object.keys(props.list).length>0 ? props.list.inspections.map((insp, index)=>{
+//const Inspections= (props)=>{
+class Inspections extends Component{
+
+  constructor(props){
+    super(props)
+
+    this.handleSubmit= this.handleSubmit.bind(this)
+  }
+
+
+  handleSubmit(info, date){
+    this.props.handleInspectionRequest(info, date)
+  }
+
+  render(){
+    
+    const inspectionsList = Object.keys(this.props.list).length>0 ? this.props.list.inspections.map((insp, index)=>{
       return(
         <tr key={index}>
           <td>{insp['type']['value']}</td>
@@ -15,12 +33,11 @@ const Inspections= (props)=>{
       )
     }): 'No Inspections on this record';
 
+
+
     return(
       <div>
-        <div>
-          <button>Request An Inspection</button>
-          <button>Request to Reschedule</button>
-        </div>
+
         <table>
           <tbody>
             <tr>
@@ -31,8 +48,14 @@ const Inspections= (props)=>{
             {inspectionsList}
           </tbody>
         </table>
+        {Object.keys(this.props.types).length>0  ?
+              <AddInspection types={this.props.types.inspectionTypes[0].inspectionTypes} handleSubmit={this.handleSubmit}/> : null
+        }
+
       </div>
     )
+
+    }
   }
 
 export default Inspections;

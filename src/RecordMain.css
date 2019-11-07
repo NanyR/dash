@@ -1,0 +1,18 @@
+.record-main{
+  display:flex;
+  flex-direction: column;
+}
+
+.record-main section{
+  width: 100%;
+
+}
+
+.asi{
+  width:600px;
+}
+
+
+h3{
+  font-size: 14px;
+}

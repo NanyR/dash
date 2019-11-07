@@ -1,0 +1,31 @@
+
+.records-list{
+  display:flex;
+  flex-direction: column;
+  margin:20px 60px;
+}
+
+.records-list button{
+  border:none;
+  height: 60px;
+  text-align: left;
+  vertical-align: middle;
+  background-color: white;
+  margin:5px;
+}
+
+.records-list button:hover
+{
+  border:none;
+  height: 60px;
+  text-align: left;
+  vertical-align: middle;
+  bbackground-color: white;
+  -webkit-box-shadow: -3px 7px 5px 4px rgba(211,220,230,0.63);
+ -moz-box-shadow: -3px 7px 5px 4px rgba(211,220,230,0.63);
+ box-shadow: -3px 7px 5px 4px rgba(211,220,230,0.63);
+}
+
+.records-list button:active{
+  border: 1px solid #4A4A4A
+}
