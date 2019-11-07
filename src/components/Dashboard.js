@@ -34,7 +34,8 @@ class Dashboard extends Component{
     this.handleLogout=this.handleLogout.bind(this);
     this.updateUser=this.updateUser.bind(this);
     this.handleResponse= this.handleResponse.bind(this);
-    this.changeProject=this.changeProject.bind(this)
+    this.changeProject=this.changeProject.bind(this);
+    this.resetCurrentProject=this.resetCurrentProject.bind(this)
   }
 
 
@@ -58,7 +59,7 @@ class Dashboard extends Component{
   }
 
   changeProject(e){
-    
+
     let projectName=e.target.attributes.data.nodeValue;
     let project = this.state[projectName];
     this.setState({
@@ -67,16 +68,16 @@ class Dashboard extends Component{
     })
   }
 
+  resetCurrentProject(){
+    this.setState({
+        currentProject:Object.assign([], []),
+        currentRecord:Object.assign({}, {})
+    })
+  }
+
   handleClick(e){
     e.preventDefault();
     let name=e.target.innerText;
-
-    if(name === 'My Projects'){
-      this.setState({
-        currentProject:Object.assign([], [])
-      })
-    }
-    // this.props.addProject()
   }
 
   getRecordSingle(e){
@@ -137,16 +138,14 @@ render(){
     <div className="dashboard">
       {this.state.user ?
         <div className="main-container">
-        <MainNav/>
+        <MainNav
+          handleLogout={this.handleLogout}
+          resetCurrentProject={this.resetCurrentProject}
+        />
         <div className="main-dash">
             <Username
             username={this.state.user} />
-            <button>
-                <a onClick={this.handleLogout}>
-                LOGOUT
-                </a>
-            </button>
-            <button onClick={this.handleClick}>My Projects</button>
+
             <Projects building={this.state.building}
             planning={this.state.planning}
             serviceReq={this.state.serviceReq}
