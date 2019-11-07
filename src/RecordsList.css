@@ -1,23 +1,29 @@
 
 .records-list{
   display:flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   margin:20px 60px;
+  flex-wrap: wrap;
+}
+
+.records-list header{
+  width:100%;
+  padding-left:0px;
 }
 
 .records-list button{
   border:none;
-  height: 60px;
+  height: 200px;
   text-align: left;
   vertical-align: middle;
   background-color: white;
-  margin:5px;
+  margin:10px;
+  flex-grow: 3;
 }
 
 .records-list button:hover
 {
   border:none;
-  height: 60px;
   text-align: left;
   vertical-align: middle;
   bbackground-color: white;

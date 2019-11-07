@@ -26,6 +26,7 @@ class Dashboard extends Component{
       serviceReq:[],
       currentRecord:{},
       currentProject:[],
+      currentProjectName:'',
       portlet:''
     }
 
@@ -64,14 +65,16 @@ class Dashboard extends Component{
     let project = this.state[projectName];
     this.setState({
       currentProject:Object.assign([], project),
-      currentRecord:Object.assign({}, {})
+      currentRecord:Object.assign({}, {}),
+      currentProjectName:projectName
     })
   }
 
   resetCurrentProject(){
     this.setState({
         currentProject:Object.assign([], []),
-        currentRecord:Object.assign({}, {})
+        currentRecord:Object.assign({}, {}),
+        currentProjectName:''
     })
   }
 
@@ -138,18 +141,19 @@ render(){
     <div className="dashboard">
       {this.state.user ?
         <div className="main-container">
-        <MainNav
-          handleLogout={this.handleLogout}
-          resetCurrentProject={this.resetCurrentProject}
-        />
+          <MainNav
+            handleLogout={this.handleLogout}
+            resetCurrentProject={this.resetCurrentProject}
+          />
         <div className="main-dash">
             <Username
             username={this.state.user} />
-
             <Projects building={this.state.building}
             planning={this.state.planning}
             serviceReq={this.state.serviceReq}
-            changeProject={this.changeProject}/>
+            changeProject={this.changeProject}
+            currentProject={this.state.currentProject}
+            currentProjectName={this.state.currentProjectName}/>
             { this.state.currentProject.length>0 ?
                 <RecordsList
                 getRecordInfo={this.getRecordSingle}
