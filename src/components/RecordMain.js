@@ -8,14 +8,11 @@ const RecordMain= (props)=>{
 
   return(
     <div className='record-main'>
-      <section>
-        <div>
-          <label>File Date: </label> <p>{props.openedDate}</p>
-        </div>
-        <div>
-          <label>Description: </label> <p>{props.description}</p>
-        </div>
-      </section>
+    {props.description ?
+      <div>
+      <label>Description: </label> <p>{props.description}</p>
+      </div> : null}
+
       {Object.keys(props.addresses).length > 0 ?
         <section>
           <Location locationInfo={props.addresses.addresses} />

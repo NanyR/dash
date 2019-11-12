@@ -8,7 +8,7 @@ const Workflow=(props)=>{
 
   const workflowTasks=Object.keys(props.tasks.workflowTasks).length>0  ? props.tasks.workflowTasks.map((task, index)=>{
       return(
-        <WorkflowTask info={task} key={index} active={task["isActive"]==="Y" } complete={task["isCompleted"] === "Y"} getStatuses={props.getStatuses} statuses={task.id === props.current ? props.statuses : ''} />
+        <WorkflowTask info={task} key={index} active={task["isActive"]==="Y" } complete={task["isCompleted"] === "Y"} getStatuses={props.getStatuses} statuses={task.id === props.current ? props.statuses : ''} agency={props.agency} workflowUpdate={props.workflowUpdate}/>
       )
   }) : "No Workflow Found on this Record"
 

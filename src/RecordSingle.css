@@ -37,9 +37,15 @@ h2{
 
 h3{
   font-size: 2em;
+  margin-bottom:0px;
 }
 
 header{
   text-align: left;
   padding: 30px 40px;
+}
+
+header p{
+  font-size: 12px;
+  margin-top: 0px;
 }

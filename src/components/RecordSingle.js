@@ -34,13 +34,18 @@ export default class RecordSingle extends Component{
     this.handleInspectionRequest=this.handleInspectionRequest.bind(this);
     this.addDocRequest=this.addDocRequest.bind(this);
     this.getStatuses=this.getStatuses.bind(this);
-    this.handleWFStatuses=this.handleWFStatuses.bind(this)
+    this.handleWFStatuses=this.handleWFStatuses.bind(this);
+    this.workflowUpdate=this.workflowUpdate.bind(this)
   }
 
 componentDidUpdate(prevProps, prevState){
   if(prevProps.recDetails.id !== this.props.recDetails.id){
     this.getRecordInfo(this.state.portlet, this.props.recDetails.id)
   }
+
+}
+
+workflowUpdate(){
   
 }
 
@@ -179,6 +184,7 @@ getStatuses(id){
               getStatuses={this.getStatuses}
               current={this.state.currentWF}
               statuses={this.state.statuses}
+              workflowUpdate={this.workflowUpdate}
               />
           )
           break;
@@ -204,6 +210,7 @@ getStatuses(id){
           <header>
               <h2>{this.props.recDetails.customId}</h2>
               <h3>{this.props.recDetails.type.alias}</h3>
+              <p>File Date: {this.props.recDetails.openedDate}</p>
           </header>
           {this.props.recDetails.customId.includes('TMP')? null :
             <RecordNav
