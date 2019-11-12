@@ -38,3 +38,74 @@ td{
 #material{
   width:48px;
 }
+
+.md-24{
+  font-size: 24px;
+}
+
+.text-med{
+  font-size: 16px;
+}
+
+.text-sm{
+  font-size:12px
+}
+
+.lighter{
+  font-weight: lighter;
+}
+
+.button-small{
+  width:80px;
+  background-color: transparent;
+  color:#4A4A4A;
+  border: 1px solid #9B9B9B
+}
+ .records-list .button-small{
+   width:80px;
+   background-color: transparent;
+   color:#4A4A4A;
+   border: 1px solid #9B9B9B;
+   height:50px;
+   text-align: center;
+
+ }
+
+ .add-form{
+   display:flex;
+   flex-direction: row;
+   width:650px;
+   border:1px solid #9B9B9B;
+   border-radius: 5px;
+   align-items:center;
+   flex-wrap: wrap;
+   padding:20px;
+   box-sizing: border-box;
+ }
+
+ .add-form select{
+   height:30px;
+   flex-grow:3;
+ }
+
+ .add-form div{
+   flex-grow: 1;
+ }
+
+ .add-form div label{
+   margin-right: 10px;
+ }
+
+ .react-datepicker__input-container input{
+   border-radius: 5px;
+ }
+
+ .material{
+   background-color: transparent;
+   width:40px;
+   height:40px;
+ }
+
+ .add-form button{
+   flex-grow: 1;
+ }

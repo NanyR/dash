@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import MaterialIcon, {colorPalette} from 'material-icons-react';
+import Upload from './Upload.js'
 
 
 //const Documents=(props)=>{
@@ -56,11 +57,11 @@ class Documents extends Component{
             {documentsList}
           </tbody>
         </table>
-        <form>
+        <form className="add-form">
           <select name="docType" onChange={this.handleSelectionChange} value={this.state.val}>
             {categories}
           </select>
-          <MaterialIcon icon="note_add" onClick={this.handleDoc}>Add Document</MaterialIcon>
+          <MaterialIcon icon="note_add" onClick={this.handleDoc} />
         </form>
       </div>
     )

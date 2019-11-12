@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import ASIList from './ASIList.js'
+import ASIList from './ASIList.js';
+import '../../Asi.css';
 
 export default class ASI extends Component{
 
@@ -38,7 +39,6 @@ export default class ASI extends Component{
   }
 
   handleInputChange(val, label, id){
-    debugger
     this.handleFieldChange(val, label, id)
   }
 
@@ -103,7 +103,7 @@ export default class ASI extends Component{
       <div>
         <button onClick={this.handleClick}>Additional Information</button>
         {this.state.show ?
-          <div>
+          <div className="asi-container">
             <ASIList asiFields={this.state.asiFields} canEdit={this.props.canEdit}/>
           </div> :null}
       </div>

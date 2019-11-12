@@ -1,18 +1,26 @@
 import React from 'react';
 
+import '../Workflow.css'
+
 
 const WorkflowTask = (props)=>{
-
-
+  const statuses= props.statuses.length > 0 ? props.statuses.map((status, index)=>{
+    return(
+      <option key={index}>{status.text}</option>
+    )
+  }): ''
   return(
-      <div>
-        <div>{props.info.description}</div>
-        <div>{props.info.status == undefined ? " " :  props.info.status.value}</div>
-        { props.complete ?
-          <div className="taskdetails">
-          <div>Edited by: {props.info["actionbyUser"]["text"]}</div>
-          <div>Edited on: {props.info["statusDate"]} </div>
-        </div> : null}
+      <div className="task">
+        <div className="task-status">{props.info.status === undefined ? " " :  props.info.status.value}</div>
+        <div className="task-name">{props.info.description}</div>
+        {props.active ?
+          <button onClick={()=>props.getStatuses(props.info.id)}>update</button>: null
+        }
+        {props.statuses.length > 0 ?
+          <select>
+            {statuses}
+          </select> : null
+        }
       </div>
   )
 

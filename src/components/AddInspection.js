@@ -48,10 +48,11 @@ render(){
   })
 
     return(
-        <form>
+        <form className="add-form">
           <select name="inspType" onChange={this.handleChange} value={this.state.inspType}>
             {types}
           </select>
+          <div>
           <label>
             Inspection Date
           </label>
@@ -59,7 +60,8 @@ render(){
             selected={this.state.sdate}
             onChange={this.handleDateChange}
           />
-          <button id="material"><MaterialIcon icon="schedule" onClick={this.handleSubmit}/></button>
+          </div>
+          <button className="material"><MaterialIcon icon="schedule" onClick={this.handleSubmit}/></button>
         </form>
     )
 

@@ -9,9 +9,9 @@ const Projects =(props)=>{
       {props.currentProjectName.length>0 ? <div className='current-project'>{projectName} Project</div>
       :
       <div className='allprojects'>
-        <div onClick={props.changeProject} name="building" data='building' className="project-tiles"> <p className="number">{props.building.length}</p>Building</div>
-        <div onClick={props.changeProject} data='planning' className="project-tiles"> <p className="number">{props.planning.length}</p>Planning</div>
-        <div onClick={props.changeProject} data='serviceReq' className="project-tiles"> <p className="number">{props.serviceReq.length}</p>Service Request</div>
+        <div onClick={()=>props.changeProject("building")} name="building" className="project-tiles"> <p className="number">{props.building.length}</p>Building</div>
+        <div onClick={()=>props.changeProject('planning' )} className="project-tiles"> <p className="number">{props.planning.length}</p>Planning</div>
+        <div onClick={()=>props.changeProject('serviceReq')} className="project-tiles"> <p className="number">{props.serviceReq.length}</p>Service Request</div>
       </div>
     }
     </div>

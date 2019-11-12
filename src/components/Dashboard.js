@@ -5,7 +5,7 @@ import axios from 'axios';
 import MaterialIcon, {colorPalette} from 'material-icons-react';
 import MainNav from './MainNav.js'
 
-import LoginForm from './LoginForm.js'
+import Login from './Login.js'
 import RecordsList from './RecordsList.js'
 import RecordSingle from './RecordSingle.js'
 import Username from './Username.js'
@@ -20,6 +20,7 @@ class Dashboard extends Component{
     super(props)
     this.state={
       user:'',
+      agency:false,
       records:[],
       building:[],
       planning:[],
@@ -37,10 +38,11 @@ class Dashboard extends Component{
     this.handleResponse= this.handleResponse.bind(this);
     this.changeProject=this.changeProject.bind(this);
     this.resetCurrentProject=this.resetCurrentProject.bind(this)
+    this.resetRecords=this.resetRecords.bind(this)
   }
 
 
-  updateUser(username, records){
+  updateUser(username, records, agency){
     let building= records.filter(rec =>{
       return rec.type.module==='Building'
     })
@@ -52,6 +54,7 @@ class Dashboard extends Component{
     })
     this.setState({
       user:username,
+      agency:agency,
       records:Object.assign([], records),
       building:Object.assign([], building),
       planning:Object.assign([], planning),
@@ -59,14 +62,12 @@ class Dashboard extends Component{
     })
   }
 
-  changeProject(e){
-
-    let projectName=e.target.attributes.data.nodeValue;
-    let project = this.state[projectName];
+  changeProject(projectN){
+    let project = this.state[projectN];
     this.setState({
       currentProject:Object.assign([], project),
       currentRecord:Object.assign({}, {}),
-      currentProjectName:projectName
+      currentProjectName:projectN
     })
   }
 
@@ -77,16 +78,22 @@ class Dashboard extends Component{
         currentProjectName:''
     })
   }
+  resetRecords(){
+    this.setState({
+        currentRecord:Object.assign({}, {}),
+    })
+  }
 
   handleClick(e){
     e.preventDefault();
     let name=e.target.innerText;
   }
 
-  getRecordSingle(e){
-    e.preventDefault();
+  getRecordSingle(record){
+    // e.preventDefault();
     axios.defaults.withCredentials = true;
-    let record= e.target.innerText;
+
+    // let record= e.target.innerText;
     let idx=this.state.records.findIndex(rec=> rec.id=== record);
     axios.post(`http://localhost:3001/main`,
       {record}
@@ -153,21 +160,25 @@ render(){
             serviceReq={this.state.serviceReq}
             changeProject={this.changeProject}
             currentProject={this.state.currentProject}
-            currentProjectName={this.state.currentProjectName}/>
+            currentProjectName={this.state.currentProjectName}
+            agency={this.state.agency}/>
             { this.state.currentProject.length>0 ?
                 <RecordsList
                 getRecordInfo={this.getRecordSingle}
-                records={this.state.currentProject}/> :
+                records={this.state.currentProject}
+                current={this.state.currentRecord}
+                resetRecords={this.resetRecords}/> :
                 null
             }
             {this.state.currentRecord.id ?
               <RecordSingle
               recDetails={this.state.currentRecord} canEdit={this.state.currentRecord.id.includes('EST')} handleFieldChange={this.handleFieldChange}
-              portlet={this.state.portlet}/>
+              portlet={this.state.portlet}
+              agency={this.state.agency}/>
               : null }
               </div>
         </div> :
-        <LoginForm updateUser={this.updateUser}/>
+        <Login updateUser={this.updateUser}/>
       }
     </div>
 

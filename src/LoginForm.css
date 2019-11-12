@@ -30,7 +30,7 @@ label{
 .form-container{
   display:flex;
   flex-direction: column;
-  /* justify-content: center; */
+  margin-top:40px;
   width:50%;
 }
 
@@ -48,13 +48,14 @@ input{
   margin:2px auto 5px auto;
 }
 
-input[type="submit"]{
+input[type="submit"],
+button{
   background-color:#FC6A71;
   border:none;
   width:307px;
   height: 40px;
   font-weight: bold;
-  margin-top:10px;
+  margin:10px auto;
   color:white;
 }
 

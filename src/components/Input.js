@@ -15,7 +15,7 @@ export default class Input extends Component {
   render(){
     const asiVal= this.props.iValue === 'CHECKED' ? (<input type="checkbox" checked readOnly/>): (  <p>{this.props.iValue || " " }</p>)
     return(
-      <div>
+      <div className="asi-single">
         <label>{this.props.iLabel}: </label>
         {this.props.canEdit ?
         <input type={this.props.iType} value={this.props.iValue || " " } onChange={this.handleChange} /> :

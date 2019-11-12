@@ -24,6 +24,8 @@ export default class RecordSingle extends Component{
       inspections:{},
       fees:{},
       processingstatusdetails:{},
+      statuses:[],
+      currentWF:''
     }
     this.handleButtonClick=this.handleButtonClick.bind(this)
     this.getRecordInfo=this.getRecordInfo.bind(this);
@@ -31,12 +33,15 @@ export default class RecordSingle extends Component{
     this.updatePortlet=this.updatePortlet.bind(this)
     this.handleInspectionRequest=this.handleInspectionRequest.bind(this);
     this.addDocRequest=this.addDocRequest.bind(this);
+    this.getStatuses=this.getStatuses.bind(this);
+    this.handleWFStatuses=this.handleWFStatuses.bind(this)
   }
 
 componentDidUpdate(prevProps, prevState){
   if(prevProps.recDetails.id !== this.props.recDetails.id){
     this.getRecordInfo(this.state.portlet, this.props.recDetails.id)
   }
+  
 }
 
 addDocRequest(type){
@@ -101,7 +106,29 @@ addDocRequest(type){
     }
   }
 
+handleWFStatuses(statuses){
+  this.setState({
+    statuses:Object.assign([], statuses)
+  })
+}
 
+getStatuses(id){
+  this.setState({
+    currentWF:id
+  })
+  axios.defaults.withCredentials = true;
+  axios.post(`http://localhost:3001/getWorkflowStatuses`,
+    {
+      record:this.props.recDetails.id,
+      id:id
+    }
+  ).then(function(data){
+    this.handleWFStatuses(data.data)
+  }.bind(this))
+  .catch(err=>{
+    console.log(`error getting workflow statuses`)
+  })
+}
 
 
   handleButtonClick(e){
@@ -132,6 +159,7 @@ addDocRequest(type){
             list={this.state.inspections[0]}
             types={this.state.inspections[1]}
             handleInspectionRequest={this.handleInspectionRequest}
+            agency={this.props.agency}
             />
             )
           break;
@@ -139,6 +167,7 @@ addDocRequest(type){
         return (
           <Fees
           feesList={this.state.fees}
+          agency={this.props.agency}
           />
         )
           break;
@@ -146,6 +175,10 @@ addDocRequest(type){
           return (
               <Workflow
               tasks={this.state.processingstatusdetails}
+              agency={this.props.agency}
+              getStatuses={this.getStatuses}
+              current={this.state.currentWF}
+              statuses={this.state.statuses}
               />
           )
           break;
@@ -155,6 +188,7 @@ addDocRequest(type){
               docs={this.state.documents[0]}
               categories={this.state.documents[1]}
               addDoc={this.addDocRequest}
+              agency={this.props.agency}
               />
           )
           break;

@@ -1,0 +1,36 @@
+.workflow{
+  display:flex;
+  flex-direction: column;
+}
+
+.task{
+  /* display:flex; */
+  justify-content: center;
+  flex-wrap: wrap;
+  height:auto;
+  width:400px;
+  /* background-color: #7AD0C6; */
+  border-radius: 5px;
+  margin:20px auto;
+  -webkit-box-shadow: -3px 7px 5px 4px rgba(211,220,230,0.63);
+ -moz-box-shadow: -3px 7px 5px 4px rgba(211,220,230,0.63);
+ box-shadow: -3px 7px 5px 4px rgba(211,220,230,0.63);
+ padding-bottom: 40px;
+}
+
+.task-name{
+  flex-grow: 1;
+  border-radius: 5px;
+  margin-top:10px;
+  /* color:white */
+}
+
+.task-status{
+  flex-grow: 1;
+  background-color: white;
+  margin-top: 5px;
+}
+
+.taskdetails{
+  flex-grow: 2;
+}

@@ -1,0 +1,61 @@
+.asi-container{
+  display:flex;
+  flex-direction: column;
+}
+
+.asi-group{
+  display: flex;
+  flex-direction: column;
+  margin: 40px auto;
+  /* background-color: #F0F7EE */
+  width:600px;
+  background: #ece9e6; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ece9e6, #ffffff); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ece9e6, #ffffff);
+  /* border:1px solid #9B9B9B; */
+  -webkit-box-shadow:0px 0px 15px 0px rgba(230, 223, 230,1);
+  -moz-box-shadow:0px 0px 15px 0px rgba(230, 223, 230,1);
+  box-shadow:0px 0px 15px 0px rgba(230, 223, 230,1);
+  margin-bottom: 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.asi-group form{
+  width:100%;
+  -webkit-box-shadow:0px 0px 15px 0px rgba(230, 223, 230,1);
+  -moz-box-shadow:0px 0px 15px 0px rgba(230, 223, 230,1);
+  box-shadow:0px 0px 15px 0px rgba(230, 223, 230,1);
+}
+
+.asi-single{
+    display: flex;
+    padding:10px 0;
+}
+
+.asi-single label{
+  width:270px;
+  align-self: center;
+}
+
+.asi-single input{
+  margin:0px;
+  border-radius:5px;
+  width:200px
+}
+
+.asi-single input[type="checkbox"]{
+  width:20px;
+  height:20px;
+}
+
+.groupName{
+  margin: auto;
+    width: 600px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    box-sizing: border-box;
+    background-color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}

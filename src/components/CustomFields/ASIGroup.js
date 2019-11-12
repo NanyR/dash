@@ -31,14 +31,14 @@ export default class ASIGroup extends Component {
     const formDetails= Object.keys(this.props.info).map((key, index)=>{
       if(key != 'id'){
       return (
-          <Input iType='text' iValue={this.props.info[key]} iLabel={key} index={index} canEdit={this.props.canEdit} handleChange={this.handleChange}/>
+          <Input iType='text' iValue={this.props.info[key]} iLabel={key} index={index} canEdit={this.props.canEdit} handleChange={this.handleChange} />
       )}
     })
 
     return(
-      <div>
+      <div className="asi-group">
         <header className="groupName">{truncTitle}</header>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} >
           {formDetails}
         {this.props.canEdit ? <button>UPDATE</button> : null}
         </form>
