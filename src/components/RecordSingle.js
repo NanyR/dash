@@ -35,7 +35,8 @@ export default class RecordSingle extends Component{
     this.addDocRequest=this.addDocRequest.bind(this);
     this.getStatuses=this.getStatuses.bind(this);
     this.handleWFStatuses=this.handleWFStatuses.bind(this);
-    this.workflowUpdate=this.workflowUpdate.bind(this)
+    this.workflowUpdate=this.workflowUpdate.bind(this);
+    this.handleWFUpdate=this.handleWFUpdate.bind(this)
   }
 
 componentDidUpdate(prevProps, prevState){
@@ -45,9 +46,42 @@ componentDidUpdate(prevProps, prevState){
 
 }
 
-workflowUpdate(){
-  
+workflowUpdate(id, status){
+  axios.defaults.withCredentials = true;
+
+  axios.post(`http://localhost:3001/updateWFStatus`,
+    {
+      "record":this.props.recDetails.id,
+      "id": id,
+      body:{
+      	"status":{
+      			"value": status,
+            "text": status
+      	}
+      }
+    }
+  ).then(function(data){
+    this.handleWFUpdate(data)
+  }.bind(this))
+  .catch(err=>{
+    console.log(`error`)
+  })
 }
+
+handleWFUpdate(info){
+  let wf= this.state.processingstatusdetails.workflowTasks.findIndex((wf)=> wf.id === info.data.id);
+  if(wf !== -1){
+    let updatedWF=[...this.state.processingstatusdetails.workflowTasks.slice(0, wf), info.data, ...this.state.processingstatusdetails.workflowTasks.slice(wf+1)]
+    
+    this.setState({
+      processingstatusdetails: {
+        ...this.state.processingstatusdetails,
+        workflowTasks:updatedWF
+      }
+    })
+  }
+}
+
 
 addDocRequest(type){
   debugger

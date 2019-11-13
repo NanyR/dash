@@ -22,13 +22,14 @@ class Inspections extends Component{
   }
 
   render(){
-    
+
     const inspectionsList = Object.keys(this.props.list).length>0 ? this.props.list.inspections.map((insp, index)=>{
       return(
         <tr key={index}>
           <td>{insp['type']['value']}</td>
           <td>{insp['status']['value']}</td>
           <td>{insp['scheduleDate']}</td>
+        
         </tr>
       )
     }): 'No Inspections on this record';
