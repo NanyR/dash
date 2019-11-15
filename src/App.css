@@ -109,3 +109,8 @@ td{
  .add-form button{
    flex-grow: 1;
  }
+
+ .error{
+   color:#ED474A;
+
+ }

@@ -12,7 +12,8 @@ export default class Login extends Component{
       user:'',
       password:'',
       citizen:false,
-      agency:false
+      agency:false,
+      failedLogin:false
     }
     this.handleSubmit=this.handleSubmit.bind(this)
     this.handleChange=this.handleChange.bind(this)
@@ -40,19 +41,24 @@ export default class Login extends Component{
   handleSubmit(e){
       axios.defaults.withCredentials = true;
     e.preventDefault();
-    axios.post('http://localhost:3001/authenticate', {
+    //axios.post('http://localhost:3001/authenticate', {
+    axios.post('http://localhost:3001/auth/accela', {
       user:this.state.user,
       password: this.state.password,
       agency:this.state.agency,
       withCredentials:true
     })
     .then(data=>{
-
-      let username= this.state.agency ? data.data[0].result.value : data.data[0].result.loginName;
-      let records= data.data[1].result;
-      this.props.updateUser(username, records, this.state.agency);
+      let username= data.data.username;
+      let projects= data.data.projects;
+      this.setState({
+        failedLogin:false
+      }, this.props.updateUser(username, projects, data.data.appType))
     })
     .catch(err=>{
+      this.setState({
+        failedLogin:true
+      })
       console.log(err)
     })
   }
@@ -61,7 +67,7 @@ export default class Login extends Component{
 
 render(){
   const instructions= this.state.agency ? "Login with your Accela Civic Platform credentials" :  "Login with your Citizen Access Credentials";
-  const content= (this.state.agency || this.state.citizen) ? <LoginForm handleSubmit={this.handleSubmit} handleChange={this.handleChange} instructions={instructions}/> :
+  const content= (this.state.agency || this.state.citizen) ? <LoginForm handleSubmit={this.handleSubmit} handleChange={this.handleChange} instructions={instructions} failedLogin={this.state.failedLogin}/> :
     <div className="form-container">
       <h3>WELCOME!</h3>
       <button onClick={this.handleClick}>CITIZEN</button>

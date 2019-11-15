@@ -42,23 +42,11 @@ class Dashboard extends Component{
   }
 
 
-  updateUser(username, records, agency){
-    let building= records.filter(rec =>{
-      return rec.type.module==='Building'
-    })
-    let planning= records.filter(rec=>{
-      return rec.type.module === 'Planning'
-    })
-    let serviceReq=records.filter(rec=>{
-      return rec.type.module==='ServiceRequest'
-    })
+  updateUser(username, projects, appType){
     this.setState({
       user:username,
-      agency:agency,
-      records:Object.assign([], records),
-      building:Object.assign([], building),
-      planning:Object.assign([], planning),
-      serviceReq:Object.assign([], serviceReq)
+      agency: appType=== "agency",
+      projects:Object.assign([], projects)
     })
   }
 
