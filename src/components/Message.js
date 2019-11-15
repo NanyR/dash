@@ -4,7 +4,7 @@ const Message = (props)=>{
 
   return(
     <div className={`${props.className} text-sm`}>
-      <p>props.text</p>
+      <p>{props.text}</p>
     </div>
 
   )
