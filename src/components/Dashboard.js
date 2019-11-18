@@ -7,7 +7,8 @@ import MainNav from './MainNav.js'
 
 import Login from './Login.js'
 import Username from './Username.js'
-import Projects from './Projects/Projects.js'
+import Projects from './Projects/Projects.js';
+import MyRecordSearch from './Records/MyRecordSearch';
 import '../Dashboard.css';
 
 
@@ -22,7 +23,7 @@ class Dashboard extends Component{
       serviceReq:[],
       currentRecord:{},
       currentProject:[],
-      currentProjectName:'',
+      // currentProject:'',
       projects:[],
       portlet:''
     }
@@ -49,11 +50,11 @@ class Dashboard extends Component{
   }
 
   changeProject(projectN){
-    let project = this.state[projectN];
+
+    let project = this.state.projects.find((proj)=>proj._id===projectN);
     this.setState({
       currentProject:Object.assign([], project),
-      currentRecord:Object.assign({}, {}),
-      currentProjectName:projectN
+      // currentProject:projectN
     })
   }
 
@@ -61,7 +62,7 @@ class Dashboard extends Component{
     this.setState({
         currentProject:Object.assign([], []),
         currentRecord:Object.assign({}, {}),
-        currentProjectName:''
+        // currentProject:''
     })
   }
   resetRecords(){
@@ -79,7 +80,9 @@ class Dashboard extends Component{
       }
     )
     .then((data)=>{
-      debugger
+      this.setState({
+        projects:[...this.state.projects,data.data]
+      })
     })
     .catch((err)=>{
       console.log(err);
@@ -162,8 +165,8 @@ render(){
             addProject={this.addProject}
             changeProject={this.changeProject}
             currentProject={this.state.currentProject}
-            currentProjectName={this.state.currentProjectName}
             agency={this.state.agency}/>
+            <MyRecordSearch />
             </div>
         </div> :
         <Login updateUser={this.updateUser}/>

@@ -1,6 +1,7 @@
 .projects{
   margin-left: 30px;
   display: flex;
+  flex-direction: column;
 }
 .current-project{
   background-color: transparent;
@@ -18,17 +19,36 @@
 }
 .allprojects{
     display: flex;
+      margin-bottom:50px;
 }
 
-.project-tiles{
-  width:230px;
-  height:150px;
-  text-align: left;
-  padding-left:10px;
+.project-tile{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  width:180px;
+  height:160px;
+  text-align: center;
+  /* padding-left:10px; */
+  /* padding:20px;
+  box-sizing: border-box; */
   color:#4A4A4A;
   margin: 10px 10px;
   background-color: white;
+  border-radius: 5px;
+  -webkit-box-shadow: -3px 7px 5px 4px rgba(211,220,230,0.63);
+ -moz-box-shadow: -3px 7px 5px 4px rgba(211,220,230,0.63);
+ box-shadow: -3px 7px 5px 4px rgba(211,220,230,0.63);
 }
+
+.project-tile p{
+  margin-top:0px
+}
+
+.project-tile .text-title {
+  margin-top:50px;
+}
+
 
 .project-tiles:hover{
   -webkit-box-shadow: -3px 7px 5px 4px rgba(211,220,230,0.63);
@@ -40,4 +60,27 @@
   font-size:1.5em;
   font-weight: bold;
   color:#1D2528;
+}
+
+.add-form {
+  /* width:80%; */
+}
+
+.add-form h4{
+  width:100%;
+  font-size:18px;
+  text-align: left;
+}
+
+.add-form textarea{
+  width:400px;
+  margin:auto
+}
+
+.add-form input[type="submit"]{
+  color:#1D2528;
+  font-size: 24px;
+  width:30px;
+  height:30px;
+  background-color: transparent
 }

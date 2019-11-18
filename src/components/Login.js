@@ -49,8 +49,8 @@ export default class Login extends Component{
       withCredentials:true
     })
     .then(data=>{
-      let username= data.data.username;
-      let projects= data.data.projects;
+      let username= data.data.userInfo.username;
+      let projects= data.data.userProjects;
       this.setState({
         failedLogin:false
       }, this.props.updateUser(username, projects, data.data.appType))

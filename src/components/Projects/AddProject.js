@@ -27,14 +27,14 @@ export default class AddProject extends Component{
 
   render(){
     return(
-      <form className="add=form" onSubmit={this.handleSubmit}>
-        <p>Create New Project</p>
-        <label>Project Name:</label>
-        <p className="text-sm">must be unique</p>
+      <form className="add-form project" onSubmit={this.handleSubmit}>
+        <h4 className="text-md">Create New Project </h4>
+        <label className="text-sm">Project Name:</label>
+        <p className="text-sm"> (must be unique)</p>
         <input type='text' name='projectName' onChange={this.handleChange.bind(this)} required/>
         <label >Description of Project</label>
         <textarea name="description" onChange={this.handleChange.bind(this)} />
-        <input type="submit"/>
+        <input type="submit" value="+"/>
       </form>
     )
   }

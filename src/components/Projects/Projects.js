@@ -5,21 +5,23 @@ import AddProject from './AddProject.js'
 
 
 const Projects =(props)=>{
-  const projectName=props.currentProjectName ? props.currentProjectName[0].toUpperCase()+props.currentProjectName.substring(1):'';
+  const projectName=props.currentProject.name? props.currentProject.name.toUpperCase(): null;
   const projectsList=props.projects.map((pro, index)=>{
     return(
-      <Project name={pro.name} key={index} current={props.currentProjectName === pro.name}/>
+      <Project name={pro.name} key={index} current={props.currentProject.name === pro.name} proId={pro._id} handleProjectClick={props.changeProject}/>
     )
   })
   return(
     <div className="projects">
-      {props.currentProjectName.length>0 ? <div className='current-project'>{projectName} Project</div>
+      {props.currentProject.name ? <div className='current-project'>{projectName} Project</div>
       :
-      <div className='allprojects'>
-        {projectsList}
+      <div>
+        <div className='allprojects'>
+          {projectsList}
+          </div>
+        <AddProject addProject={props.addProject}/>
       </div>
     }
-    <AddProject addProject={props.addProject}/>
     </div>
   )
 
