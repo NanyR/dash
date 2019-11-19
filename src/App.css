@@ -84,8 +84,8 @@ td{
 
  .add-form{
    display:flex;
-   flex-direction: row;
-   width:650px;
+   /* flex-direction: column; */
+   width:80%;
    /* border:1px solid #9B9B9B; */
    border-radius: 5px;
    align-items:center;
@@ -99,6 +99,7 @@ td{
   color:#4A4A4A;
   margin-bottom:40px
  }
+
 
  .add-form select{
    height:30px;
@@ -126,6 +127,7 @@ td{
  .add-form button{
    flex-grow: 1;
  }
+
 
  .error{
    color:#ED474A;

@@ -7,19 +7,33 @@
 }
 
 .records-list header{
-  width:100%;
-  padding-left:0px;
+  align-self: center;
+  text-align: left
 }
 
-.records-list button{
+/* .records-list button{ */
+.record-result{
   border:none;
-  height: 200px;
+  height: 90px;
   text-align: left;
-  vertical-align: middle;
+  /* vertical-align: middle; */
   background-color: white;
-  margin:10px;
-  width:190px;
+  margin:10px auto;
+  width:100%;
+  padding:10px 20px;
   color:#4A4A4A;
+  border-radius:5px;
+  -webkit-box-shadow: -3px 7px 5px 4px rgba(211,220,230,0.63);
+ -moz-box-shadow: -3px 7px 5px 4px rgba(211,220,230,0.63);
+ box-shadow: -3px 7px 5px 4px rgba(211,220,230,0.63);
+}
+
+.record-label{
+  width:80%;
+}
+
+.record-result input[type="checkbox"]{
+  align-self: center;
 }
 
 .records-list button:hover
@@ -35,4 +49,20 @@
 
 .records-list button:active{
   border: 1px solid #4A4A4A
+}
+
+.record-result{
+  display:flex;
+  width:100%;
+}
+
+.record-result p{
+  width:100%;
+}
+
+.records-list .med-button{
+  width:150px;
+  height:60px;
+  border-radius: 6px;
+  border:1px solid #ccc;
 }

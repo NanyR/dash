@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import RecordsList from './RecordsList';
 
 export default class MyRecordSearch extends Component{
 
@@ -9,7 +10,8 @@ export default class MyRecordSearch extends Component{
       rec_id:'',
       rec_type:'',
       rec_module:'',
-      finishedSearch:false
+      finishedSearch:false,
+      records:[]
     }
     this.handleChange=this.handleChange.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
@@ -18,15 +20,18 @@ export default class MyRecordSearch extends Component{
   handleSubmit(e){
     e.preventDefault();
     axios.defaults.withCredentials = true;
-    var body={
-      customId: this.state.rec_id
-        // type:this.state.rec_type,
-        // module:this.state.rec_module
-      }
+
     axios.post("http://localhost:3001/records/search",
-      body
+    {
+      customId: this.state.rec_id,
+        type:this.state.rec_type,
+        module:this.state.rec_module
+      }
     ).then((data)=>{
-      debugger
+      this.setState({
+        records:Object.assign([], data.data.result),
+        finishedSearch:true
+      })
     }).catch((err)=>{
       console.log('error')
     })
@@ -55,7 +60,11 @@ export default class MyRecordSearch extends Component{
         </form>
         {this.state.finishedSearch ?
           <div>
-
+            <RecordsList records={this.state.records}
+            getRecordInfo={this.props.getRecordInfo}
+            current={false}
+            handleCheckboxChange={this.props.handleCheckboxRecordChange}
+            />
           </div> :
           null
         }

@@ -8,7 +8,7 @@ import MainNav from './MainNav.js'
 import Login from './Login.js'
 import Username from './Username.js'
 import Projects from './Projects/Projects.js';
-import MyRecordSearch from './Records/MyRecordSearch';
+import RecordsList from './Records/RecordsList.js'
 import '../Dashboard.css';
 
 
@@ -22,10 +22,11 @@ class Dashboard extends Component{
       agency:false,
       serviceReq:[],
       currentRecord:{},
-      currentProject:[],
-      // currentProject:'',
+      currentProject:{},
+      myRecords:[],
       projects:[],
-      portlet:''
+      portlet:'',
+      showMyRecords:false
     }
 
     this.handleClick=this.handleClick.bind(this);
@@ -36,9 +37,14 @@ class Dashboard extends Component{
     this.changeProject=this.changeProject.bind(this);
     this.resetCurrentProject=this.resetCurrentProject.bind(this)
     this.resetRecords=this.resetRecords.bind(this);
-    this.addProject=this.addProject.bind(this)
+    this.getMyRecords=this.getMyRecords.bind(this);
+    this.addProject=this.addProject.bind(this);
+
   }
 
+  // componentDidMount(){
+  //   this.getMyRecords()
+  // }
 
   updateUser(username, projects, appType){
     localStorage.setItem('user', username)
@@ -46,21 +52,21 @@ class Dashboard extends Component{
       user:username,
       agency: appType=== "agency",
       projects:Object.assign([], projects)
-    })
+    }, this.getMyRecords())
   }
 
-  changeProject(projectN){
 
-    let project = this.state.projects.find((proj)=>proj._id===projectN);
+  changeProject(projectN){
+    var pro = this.state.projects.find((proj)=>proj._id===projectN);
     this.setState({
-      currentProject:Object.assign([], project),
+      currentProject:Object.assign({}, pro)
       // currentProject:projectN
     })
   }
 
   resetCurrentProject(){
     this.setState({
-        currentProject:Object.assign([], []),
+        currentProject:Object.assign({}, []),
         currentRecord:Object.assign({}, {}),
         // currentProject:''
     })
@@ -81,13 +87,29 @@ class Dashboard extends Component{
     )
     .then((data)=>{
       this.setState({
-        projects:[...this.state.projects,data.data]
+        projects:[...this.state.projects,data.data],
+        currentProject:data.data
       })
     })
     .catch((err)=>{
       console.log(err);
     })
   }
+
+  getMyRecords(){
+    axios.defaults.withCredentials = true;
+    axios.post(`http://localhost:3001/records/index`
+    )
+    .then((data)=>{
+      this.setState({
+        myRecords:Object.assign([], data.data.result)
+      })
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
+
 
   handleClick(e){
     e.preventDefault();
@@ -139,7 +161,8 @@ class Dashboard extends Component{
         user:'',
         records:[],
         currentRecord:{},
-        asiFields:[]
+        asiFields:[],
+        currentProject:{}
       }, localStorage.removeItem("user"))
     })
     .catch((err)=>{
@@ -165,8 +188,17 @@ render(){
             addProject={this.addProject}
             changeProject={this.changeProject}
             currentProject={this.state.currentProject}
-            agency={this.state.agency}/>
-            <MyRecordSearch />
+            agency={this.state.agency}
+            records={this.state.myRecords}
+            getRecordInfo={this.getRecordSingle}/>
+            {this.state.currentProject ? null :
+              <RecordsList
+              records={this.state.myRecords}
+              getRecordInfo={this.getRecordSingle}
+              current={this.state.currentRecord}
+              home={true}/>
+            }
+
             </div>
         </div> :
         <Login updateUser={this.updateUser}/>

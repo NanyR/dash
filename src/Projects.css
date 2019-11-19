@@ -19,13 +19,18 @@
 }
 .allprojects{
     display: flex;
-      margin-bottom:50px;
+    flex-wrap:wrap;
+    margin-bottom:50px;
+    width:80%;
+    margin:40px auto;
 }
 
 .project-tile{
   display: flex;
   flex-direction: column;
   align-content: center;
+  /* flex: 1 0 130px; */
+  margin:10px;
   width:180px;
   height:160px;
   text-align: center;
@@ -83,4 +88,9 @@
   width:30px;
   height:30px;
   background-color: transparent
+}
+
+.field-container{
+  display: flex;
+  width:100%
 }

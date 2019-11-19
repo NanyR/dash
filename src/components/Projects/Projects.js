@@ -8,12 +8,25 @@ const Projects =(props)=>{
   const projectName=props.currentProject.name? props.currentProject.name.toUpperCase(): null;
   const projectsList=props.projects.map((pro, index)=>{
     return(
-      <Project name={pro.name} key={index} current={props.currentProject.name === pro.name} proId={pro._id} handleProjectClick={props.changeProject}/>
+      <Project
+      name={pro.name}
+      key={index}
+      current={props.currentProject.name === pro.name}
+      proId={pro._id}
+      handleProjectClick={props.changeProject}
+      records={props.records}/>
     )
   })
   return(
     <div className="projects">
-      {props.currentProject.name ? <div className='current-project'>{projectName} Project</div>
+      {props.currentProject.name ?
+        <Project
+        name={props.currentProject.name}
+        proId={props.currentProject._id}
+        handleProjectClick={props.changeProject}
+        records={props.records}
+        className='current-project'
+        current={true}/>
       :
       <div>
         <div className='allprojects'>
