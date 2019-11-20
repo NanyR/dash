@@ -44,14 +44,16 @@ export default class Project extends Component{
   }
 
   render(){
+    
   return(
     <div>
     {this.props.current ?
       <div className="project-container">
         <ProjectDashboard
         name={this.props.name}
-        records={this.state.projectRecords}
+
         proId={this.props.proId}
+        projRecords={this.props.projRecords}
         />
         <RecordsList
         records={this.props.records}

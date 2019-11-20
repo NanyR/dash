@@ -23,6 +23,7 @@ const Projects =(props)=>{
         <Project
         name={props.currentProject.name}
         proId={props.currentProject._id}
+        projRecords={props.currentProject.records}
         handleProjectClick={props.changeProject}
         records={props.records}
         className='current-project'

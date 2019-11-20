@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import Activity from '../Workflow/Activity';
+import Fees from '../Fees';
+import Inspections from '../Inspections/Inspections'
 
 export default class ProjectDashboard extends Component{
   constructor(props){
@@ -11,22 +14,45 @@ export default class ProjectDashboard extends Component{
       pCommunications:[]
     }
     this.getProjectDetails=this.getProjectDetails.bind(this)
+    this.handlePortletClick=this.handlePortletClick.bind(this)
   }
 
   componentDidMount(){
-    this.getProjectDetails()
+    this.getProjectDetails(this.props.projRecords)
   }
 
-  getProjectDetails(){
-    let records=this.props.records;
+  getProjectDetails(recs){
+    let records=recs;
     axios.defaults.withCredentials = true;
     axios.post(`http://localhost:3001/records/getRecordsInfo`,
       {records}
     ).then((data)=>{
-      debugger
+      this.setState({
+        pFees:Object.assign([], data.data.fees),
+        pInspections:Object.assign([], data.data.insp),
+        pWorkflows:Object.assign([], data.data.wf)
+      })
     }).catch((err)=>{
       console.log("error getting project details")
     })
+  }
+
+  handlePortletClick(e){
+    let targ=e.innerText;
+    this.setState({
+      portlet:e.toLowerCase()
+    })
+  }
+
+  portlets(portlet){
+    switch(portlet){
+      case 'track':
+        return (<Activity data:{this.state.pWorkflows} />);
+      case 'fees & payments':
+          return (<Fees data:{this.state.pFees} />);
+      case 'inspections':
+            return (<Inspections data:this.state.pInspections/>)
+    }
   }
 
   render(){
@@ -34,6 +60,11 @@ export default class ProjectDashboard extends Component{
       <div className="project-dashboard">
         <div className="project-name">
           {this.props.name}
+        </div>
+        <div clasaName="project-mainNav">
+          <button onClick={this.handlePortletClick}>Track</button>
+          <button onClick={this.handlePortletClick}>Fees & Payments</button>
+          <button onClick={this.handlePortletClick}>Inspections</button>
         </div>
       </div>
     )

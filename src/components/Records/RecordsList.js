@@ -12,6 +12,7 @@ class RecordsList extends  Component{
     this.addToCheckedRecords=this.addToCheckedRecords.bind(this)
     this.addRecordsToProject=this.addRecordsToProject.bind(this)
   }
+  
 
   addToCheckedRecords(recId, add){
     if(add){
