@@ -11,10 +11,12 @@ export default class ProjectDashboard extends Component{
       pFees:[],
       pInspections:[],
       pWorkflows:[],
-      pCommunications:[]
+      pCommunications:[],
+      gotData:false
     }
     this.getProjectDetails=this.getProjectDetails.bind(this)
     this.handlePortletClick=this.handlePortletClick.bind(this)
+    this.handleTileClick=this.handleTileClick.bind(this)
   }
 
   componentDidMount(){
@@ -32,6 +34,12 @@ export default class ProjectDashboard extends Component{
         pInspections:Object.assign([], data.data.insp),
         pWorkflows:Object.assign([], data.data.wf)
       })
+    })
+    .then((data)=>{
+      this.setState({
+        gotData:true,
+
+      })
     }).catch((err)=>{
       console.log("error getting project details")
     })
@@ -44,18 +52,20 @@ export default class ProjectDashboard extends Component{
     })
   }
 
+
   portlets(portlet){
     switch(portlet){
       case 'track':
-        return (<Activity data:{this.state.pWorkflows} />);
+        return (<Activity data={this.state.pWorkflows} />);
       case 'fees & payments':
-          return (<Fees data:{this.state.pFees} />);
+          return (<Fees data={this.state.pFees} />);
       case 'inspections':
-            return (<Inspections data:this.state.pInspections/>)
+            return (<Inspections data={this.state.pInspections}/>)
     }
   }
 
   render(){
+
     return(
       <div className="project-dashboard">
         <div className="project-name">
@@ -66,6 +76,9 @@ export default class ProjectDashboard extends Component{
           <button onClick={this.handlePortletClick}>Fees & Payments</button>
           <button onClick={this.handlePortletClick}>Inspections</button>
         </div>
+        {this.state.gotData  ?
+            <Activity data={this.state.pWorkflows}/> : null
+        }
       </div>
     )
   }
