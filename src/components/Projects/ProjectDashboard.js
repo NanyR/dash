@@ -16,7 +16,7 @@ export default class ProjectDashboard extends Component{
     }
     this.getProjectDetails=this.getProjectDetails.bind(this)
     this.handlePortletClick=this.handlePortletClick.bind(this)
-    this.handleTileClick=this.handleTileClick.bind(this)
+    // this.handleTileClick=this.handleTileClick.bind(this)
   }
 
   componentDidMount(){
@@ -37,7 +37,7 @@ export default class ProjectDashboard extends Component{
     })
     .then((data)=>{
       this.setState({
-        gotData:true,
+        gotData:true
 
       })
     }).catch((err)=>{
@@ -71,7 +71,7 @@ export default class ProjectDashboard extends Component{
         <div className="project-name">
           {this.props.name}
         </div>
-        <div clasaName="project-mainNav">
+        <div className="project-mainNav">
           <button onClick={this.handlePortletClick}>Track</button>
           <button onClick={this.handlePortletClick}>Fees & Payments</button>
           <button onClick={this.handlePortletClick}>Inspections</button>

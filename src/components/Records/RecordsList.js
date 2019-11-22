@@ -7,12 +7,19 @@ class RecordsList extends  Component{
   constructor(props){
     super(props)
     this.state={
-      checkedRecords:[]
+      checkedRecords:[],
+      showList:false
     }
     this.addToCheckedRecords=this.addToCheckedRecords.bind(this)
     this.addRecordsToProject=this.addRecordsToProject.bind(this)
+    this.toggleList=this.toggleList.bind(this)
   }
-  
+
+  toggleList(){
+    this.setState({
+      showList:this.state.showList ? false : true
+    })
+  }
 
   addToCheckedRecords(recId, add){
     if(add){
@@ -45,14 +52,19 @@ class RecordsList extends  Component{
         )
     })
     return(
-      <div className="records-list">
-
-      <header>My Records</header>
-      {this.props.home ? null :
-        <button onClick={this.addRecordsToProject} className="med-button">Add records to project</button>
+      <div>
+      <button onClick={this.toggleList}>{this.state.showList ? "Hide" : "Show"} my Records</button>
+      {this.state.showList ?
+        <div className="records-list">
+          <header>My Records</header>
+            {this.props.home ? null :
+              <button onClick={this.addRecordsToProject} >Add records to project</button>
+            }
+              {recordLabels}
+        </div>
+        : null
       }
-        {recordLabels}
-      </div>
+  </div>
     )}
 }
 
