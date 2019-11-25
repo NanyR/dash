@@ -44,7 +44,7 @@ export default class Project extends Component{
   }
 
   render(){
-    
+
   return(
     <div>
     {this.props.current ?
@@ -55,6 +55,7 @@ export default class Project extends Component{
         proId={this.props.proId}
         projRecords={this.props.projRecords}
         />
+
         <RecordsList
         records={this.props.records}
         getRecordInfo={this.props.getRecordInfo}
@@ -64,7 +65,7 @@ export default class Project extends Component{
         </div> :
       <div className="project-tile" onClick={this.handleClick}>
         <p className="text-med text-title">{this.props.name}</p>
-        <p className="text-med">4 </p>
+        <p className="text-med">{this.props.qty}</p>
       </div>
     }
     </div>

@@ -12,10 +12,12 @@ export default class ProjectDashboard extends Component{
       pInspections:[],
       pWorkflows:[],
       pCommunications:[],
-      gotData:false
+      gotData:false,
+      current:""
     }
     this.getProjectDetails=this.getProjectDetails.bind(this)
     this.handlePortletClick=this.handlePortletClick.bind(this)
+    this.portlets=this.portlets.bind(this)
     // this.handleTileClick=this.handleTileClick.bind(this)
   }
 
@@ -32,13 +34,13 @@ export default class ProjectDashboard extends Component{
       this.setState({
         pFees:Object.assign([], data.data.fees),
         pInspections:Object.assign([], data.data.insp),
-        pWorkflows:Object.assign([], data.data.wf)
+        pWorkflows:Object.assign([], data.data.wf),
+        current:'track'
       })
     })
     .then((data)=>{
       this.setState({
         gotData:true
-
       })
     }).catch((err)=>{
       console.log("error getting project details")
@@ -46,9 +48,9 @@ export default class ProjectDashboard extends Component{
   }
 
   handlePortletClick(e){
-    let targ=e.innerText;
+    let name=e.target.innerText.toLowerCase();
     this.setState({
-      portlet:e.toLowerCase()
+      current:name
     })
   }
 
@@ -62,10 +64,13 @@ export default class ProjectDashboard extends Component{
       case 'inspections':
             return (<Inspections data={this.state.pInspections}/>)
     }
+    this.setState({
+      current:portlet
+    })
   }
 
   render(){
-
+    const currenPortlet= this.state.gotData ? this.portlets(this.state.current) : null
     return(
       <div className="project-dashboard">
         <div className="project-name">
@@ -76,9 +81,8 @@ export default class ProjectDashboard extends Component{
           <button onClick={this.handlePortletClick}>Fees & Payments</button>
           <button onClick={this.handlePortletClick}>Inspections</button>
         </div>
-        {this.state.gotData  ?
-            <Activity data={this.state.pWorkflows}/> : null
-        }
+
+        {currenPortlet}
       </div>
     )
   }

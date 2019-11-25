@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 
 import Tile from '../Projects/Tile';
-import Table from './Table'
+import ContentTable from '../ContentTable';
 
 // const Activity = (props)=>{
 class Activity extends Component{
@@ -17,6 +17,7 @@ class Activity extends Component{
     approved:[],
     denied:[],
     current:[],
+    currentTile:'',
     showData:false
     }
     this.updateTrackInfo=this.updateTrackInfo.bind(this)
@@ -35,9 +36,11 @@ class Activity extends Component{
         completedTasks:Object.assign([], data.completedTasks),
         approved:Object.assign([], data.approved),
         denied:Object.assign([], data.denied),
-        current:Object.assign([],data.activeTasks)
       })
     }).then(()=>{
+      this.flattenReduceAndUpdate(this.state.actionReq, "in review")
+    })
+    .then(()=>{
       this.setState({
         showData:true
       })
@@ -104,7 +107,7 @@ class Activity extends Component{
           return(
             rec.filter((task)=>{
               //will approve include any task with a status of approved?
-              task.description.toLowerCase().includes('issuance') && task.status.value.toLowerCase().includes('approved')
+              return(task.description.toLowerCase().includes('issuance') && (task.status.value.toLowerCase().includes('approved') || task.status.value.toLowerCase().includes('issued')))
             })
           )
         })
@@ -112,7 +115,7 @@ class Activity extends Component{
         const denied = completedTasks.map((rec)=>{
           return(
             rec.filter((task)=>{
-              task.status.value.toLowerCase().includes('denied')
+              return(task.status.value.toLowerCase().includes('denied'))
             })
           )
         })
@@ -123,41 +126,54 @@ class Activity extends Component{
   handleTileClick(label){
     switch (label) {
       case "In Review":
-        return this.flattenReduceAndUpdate(this.state.inReview)
+         this.flattenReduceAndUpdate(this.state.inReview,"in review")
         break;
       case "Action Required":
-        return this.flattenReduceAndUpdate(this.state.actionReq)
+         this.flattenReduceAndUpdate(this.state.actionReq, "action required")
         break;
       case "Approved":
-        return this.flattenReduceAndUpdate(this.state.approved)
+         this.flattenReduceAndUpdate(this.state.approved,"approved")
         break;
       case "Denied":
-        return this.flattenReduceAndUpdate(this.state.denied)
+         this.flattenReduceAndUpdate(this.state.denied,"denied")
         break;
     }
   }
 
-  flattenReduceAndUpdate(arr){
+  flattenReduceAndUpdate(arr, tile){
       const tasks= (arr.filter((arr)=>{
       return arr.length > 0
     }))
     this.setState({
-      current:Object.assign([], tasks)
+      current:Object.assign([], tasks),
+      currentTile:tile
     })
+    return
   }
 
   render(){
+
       return(
+
         <div className="activity portlet">
+        {this.state.showData ?
+          <div>
           <div className="tiles-container">
-            <Tile label="In Review" info={this.state.inReview} handleTileClick={this.handleTileClick}/>
-            <Tile label="Action Required" info={this.state.actionReq} handleTileClick={this.handleTileClick}/>
-            <Tile label="Approved" info={this.state.approved} handleTileClick={this.handleTileClick}/>
-            <Tile label="Denied" info={this.state.denied} handleTileClick={this.handleTileClick}/>
+            <Tile label="In Review" current={this.state.currentTile} info={this.state.inReview} handleTileClick={this.handleTileClick}/>
+            <Tile label="Action Required" current={this.state.currentTile} info={this.state.actionReq} handleTileClick={this.handleTileClick}/>
+            <Tile label="Approved" current={this.state.currentTile} info={this.state.approved} handleTileClick={this.handleTileClick}/>
+            <Tile label="Denied" current={this.state.currentTile} info={this.state.denied} handleTileClick={this.handleTileClick}/>
           </div>
-          <div className="details-container">
-            <Table content={this.state.current}/>
-          </div>
+            <div className="details-container">
+              {this.state.current ?
+              <ContentTable
+              content={this.state.current}
+              current={this.state.currentTile}/>
+              : null}
+            </div>
+
+          </div> : null}
+
         </div>
       )
     }

@@ -14,7 +14,8 @@ const Projects =(props)=>{
       current={props.currentProject.name === pro.name}
       proId={pro._id}
       handleProjectClick={props.changeProject}
-      records={props.records}/>
+      records={props.records}
+      qty={pro.records.length}/>
     )
   })
   return(
