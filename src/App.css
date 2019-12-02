@@ -24,23 +24,50 @@ input, textarea{
   border:1px solid #D2CED4;
 }
 
-input[type="submit"]:hover{
-background-color: #E65B67;
+td input[type="checkbox"]{
+  width:16px;
+  height:16px;
+  border-radius:0px;
+  border:1px solid #4A4A4A;
+  background-color: transparent;
+  /* -moz-appearance:none;
+  -webkit-appearance:none;
+  -o-appearance:none */
+}
 
+input[type=checkbox]{
+
+  border-radius: 0px;
+
+}
+
+
+.table-header{
+  background-color: #F1F2F4;
+  height:50px;
+font-family: 'Montserrat', sans-serif;
+}
+
+tr{
+  background-color:#F6F7FA;
+  border-top:none;
+  border-bottom: 1px solid #525D67;
+  height:40px;
 }
 
 
 table{
-  width:650px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
+  /* border: 1px solid #ccc; */
+  /* border-radius: 10px;  */
+  width:90%;
   font-family:'Khula', 'sans-serif';
+  /* font-family: 'Montserrat', sans-serif; */
   margin:20px auto;
 }
-td{
+/* td{
     border: 1px solid #ccc;
 
-}
+} */
 
 #material{
   width:48px;
@@ -62,16 +89,16 @@ td{
   font-size:12px
 }
 
+.text-lg{
+  font-size: 20px;
+  color:#525D67
+}
+
 .lighter{
   font-weight: lighter;
 }
 
-.button-small{
-  width:80px;
-  background-color: transparent;
-  color:#4A4A4A;
-  border: 1px solid #9B9B9B
-}
+
  .records-list .button-small{
    width:80px;
    background-color: transparent;

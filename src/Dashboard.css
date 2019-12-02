@@ -1,32 +1,62 @@
 
-.dashboard{
+.Dashboard{
   width:100%;
-  height:100%;
+  height:auto;
   display:grid;
+  background-color: #F1F2F4;
 }
 
 .main-container{
   display: flex;
 }
 
-.sideNav{
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 100px;
+svg{
+  color:white
 }
 
-.sideNav i {
-  width:100px;
-  margin:20px auto;
-
-}
 .material-icons.md-24{
   font-size:40px
 }
 
 .main-dash{
-  flex-grow: 10;
+  flex:auto;
   height:auto
+}
+
+.buttons-gr{
+  border-radius: 5px;
+  border:none;
+  background-color:#3AC4DD;
+  box-shadow: -2px 2px 8px 0px rgba(221,223,229,0.89);
+-webkit-box-shadow: -2px 2px 8px 0px rgba(221,223,229,0.89);
+-moz-box-shadow: -2px 2px 8px 0px rgba(221,223,229,0.89);
+font-family: 'Montserrat', sans-serif;
+margin:10px auto;
+}
+
+.btn_sm{
+  padding:auto 5px;
+  width:auto;
+  height:25px;
+  font-size: 8px;
+  color:white;
+  margin:0 20px
+}
+
+.btn_md{
+  padding:auto 5px;
+  width:200px;
+  height:50px;
+  font-size: 12px;
+  color:white;
+  font-weight: bold
+}
+
+.btn_lg{
+  padding:auto 5px;
+  width:250px;
+  height:50px;
+  font-size: 14px;
+  color:white;
+  font-weight: bold
 }

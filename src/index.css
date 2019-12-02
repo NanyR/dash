@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Khula|Mitr&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Khula|Mitr|Montserrat&display=swap');
 
 
 body {
@@ -9,6 +9,9 @@ font-family:'Khula', 'sans-serif';
 #root{
   width:100%;
   height:100%;
+}
 
-
+textarea:focus,
+ input:focus{
+    outline: none;
 }

@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Khula|PT+Sans+Caption&display=swap');
+
 
 .userName{
-  font-family: 'Pt Sans Caption', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   text-align: left;
-  margin-left:30px;
-  font-size: 1.5em;
+  margin:50px;
 }

@@ -70,8 +70,8 @@ render(){
   const content= (this.state.agency || this.state.citizen) ? <LoginForm handleSubmit={this.handleSubmit} handleChange={this.handleChange} instructions={instructions} failedLogin={this.state.failedLogin}/> :
     <div className="form-container">
       <h3>WELCOME!</h3>
-      <button onClick={this.handleClick}>CITIZEN</button>
-      <button onClick={this.handleClick}>AGENCY</button>
+      <button onClick={this.handleClick}  className="buttons-gr btn_md" >CITIZEN</button>
+      <button onClick={this.handleClick} className="buttons-gr btn_md" >AGENCY</button>
     </div>
   return(
     <div className="LoginForm">

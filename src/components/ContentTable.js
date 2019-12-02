@@ -17,16 +17,16 @@ class ContentTable extends Component{
   getHeaders(cType){
     switch(this.props.current){
       case "in review":
-        return (<tr><th>Record Id</th><th> Task</th><th>Status</th><th>Due Date</th><th>Actions</th></tr>)
+        return (<tr className="table-header"><th>Record Id</th><th> Task</th><th>Status</th><th>Due Date</th><th>Actions</th></tr>)
         break;
       case "action required":
-        return (<tr><th>Record Id</th><th>Task</th><th>Status</th><th>Due Date</th><th>Actions</th></tr>)
+        return (<tr className="table-header"><th>Record Id</th><th>Task</th><th>Status</th><th>Due Date</th><th>Actions</th></tr>)
         break;
       case ("approved"):
-        return (<tr><th>Record Id</th><th>Task</th><th>Status</th><th>Status Date</th><th>Actions</th></tr>)
+        return (<tr className="table-header"><th>Record Id</th><th>Task</th><th>Status</th><th>Status Date</th><th>Actions</th></tr>)
         break;
         case ("denied"):
-          return (<tr><th>Record Id</th><th>Task</th><th>Status</th><th>Status Date</th><th>Actions</th></tr>)
+          return (<tr className="table-header"><th>Record Id</th><th>Task</th><th>Status</th><th>Status Date</th><th>Actions</th></tr>)
           break;
     }
 
@@ -53,7 +53,7 @@ class ContentTable extends Component{
       const tcontent= this.getContent()
       const headers= this.getHeaders()
       return(
-        <table>
+        <table className="text-sm">
           <tbody>
             {headers}
             {tcontent}

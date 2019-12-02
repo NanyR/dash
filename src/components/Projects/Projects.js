@@ -28,7 +28,8 @@ const Projects =(props)=>{
         handleProjectClick={props.changeProject}
         records={props.records}
         className='current-project'
-        current={true}/>
+        current={true}
+        addRecordsToProject={props.addRecordsToProject}/>
       :
       <div>
         <div className='allprojects'>

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ProjectDashboard from './ProjectDashboard';
 import RecordsList from '../Records/RecordsList';
 import axios from 'axios';
+import '../../Project.css';
 
 
 
@@ -24,23 +25,7 @@ export default class Project extends Component{
   }
 
   addRecordsToProject(records){
-    axios.defaults.withCredentials = true;
-    axios.post(`http://localhost:3001/projects/update`,
-      {
-        projectId:this.props.proId,
-        records:records
-      }
-    ).then((data)=>{
-      this.setState({
-        projectRecords:Object.assign([], data.data)
-      })
-    }).catch((err)=>{
-      console.log(err.status)
-      console.log('error adding record to project')
-      this.setState({
-        error:true
-      })
-    })
+    this.props.addRecordsToProject(records, this.props.proId)
   }
 
   render(){
@@ -51,7 +36,6 @@ export default class Project extends Component{
       <div className="project-container">
         <ProjectDashboard
         name={this.props.name}
-
         proId={this.props.proId}
         projRecords={this.props.projRecords}
         />
@@ -61,6 +45,7 @@ export default class Project extends Component{
         getRecordInfo={this.props.getRecordInfo}
         current={false}
         addRecordsToProject={this.addRecordsToProject}
+        projRecords={this.props.projRecords}
         home={false}/>
         </div> :
       <div className="project-tile" onClick={this.handleClick}>

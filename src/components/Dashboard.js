@@ -39,7 +39,7 @@ class Dashboard extends Component{
     this.resetRecords=this.resetRecords.bind(this);
     this.getMyRecords=this.getMyRecords.bind(this);
     this.addProject=this.addProject.bind(this);
-
+    this.addRecordsToProject=this.addRecordsToProject.bind(this)
   }
 
   // componentDidMount(){
@@ -93,6 +93,36 @@ class Dashboard extends Component{
     })
     .catch((err)=>{
       console.log(err);
+    })
+  }
+
+  addRecordsToProject(records, proId){
+    axios.defaults.withCredentials = true;
+    axios.post(`http://localhost:3001/projects/update`,
+      {
+        projectId:proId,
+        records:records
+      }
+    ).then((data)=>{
+
+      let idx= this.state.projects.findIndex((pro)=> pro._id === proId);
+      this.setState({
+        projects:[...this.state.projects.slice(0, idx),
+          Object.assign({}, this.state.projects[idx], {records:data.data}),
+          ...this.state.projects.slice(idx +1)
+        ]
+        // projectRecords:Object.assign([], data.data)
+      })
+      })
+      .then(()=>{
+        this.changeProject(proId)
+      })
+      .catch((err)=>{
+      console.log(err.status)
+      console.log('error adding record to project')
+      this.setState({
+        error:true
+      })
     })
   }
 
@@ -174,7 +204,7 @@ class Dashboard extends Component{
 
 render(){
   return(
-    <div className="dashboard">
+    <div className="Dashboard">
       {this.state.user ?
         <div className="main-container">
           <MainNav
@@ -190,7 +220,8 @@ render(){
             currentProject={this.state.currentProject}
             agency={this.state.agency}
             records={this.state.myRecords}
-            getRecordInfo={this.getRecordSingle}/>
+            getRecordInfo={this.getRecordSingle}
+            addRecordsToProject={this.addRecordsToProject}/>
             {this.state.currentProject ? null :
               <RecordsList
               records={this.state.myRecords}

@@ -22,26 +22,24 @@ class Inspections extends Component{
   }
 
   render(){
-
-    const inspectionsList = Object.keys(this.props.list).length>0 ? this.props.list.inspections.map((insp, index)=>{
-      return(
-        <tr key={index}>
-          <td>{insp['type']['value']}</td>
-          <td>{insp['status']['value']}</td>
-          <td>{insp['scheduleDate']}</td>
-        
-        </tr>
+    const recordsList = this.props.data ? this.props.data.filter(rec => rec.status === 200).flat() : [];
+    const inspections = recordsList.length > 0 ? recordsList.filter(rec => rec.result) : [];
+    const inspectionsList = inspections.length>0 ? inspections.map((insp, index)=>{
+        return(
+          <tr key={index}>
+            <td>{insp['type']['value']}</td>
+            <td>{insp['status']['value']}</td>
+            <td>{insp['scheduleDate']}</td>
+          </tr>
       )
-    }): 'No Inspections on this record';
-
+    }): <td className="extend-cell">No Inspections found</td>
 
 
     return(
-      <div>
-
-        <table>
+      <div className="details-container">
+        <table className="text-sm">
           <tbody>
-            <tr>
+            <tr className="table-header">
               <th>Inspection Type</th>
               <th>Status</th>
               <th>Scheduled | Status Date</th>
@@ -49,7 +47,7 @@ class Inspections extends Component{
             {inspectionsList}
           </tbody>
         </table>
-        {Object.keys(this.props.types).length>0  ?
+        {inspections.length>0 ?
               <AddInspection types={this.props.types.inspectionTypes[0].inspectionTypes} handleSubmit={this.handleSubmit}/> : null
         }
 

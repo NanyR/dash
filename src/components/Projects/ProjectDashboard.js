@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import Activity from '../Workflow/Activity';
-import Fees from '../Fees';
+import Fees from '../Fees/Fees';
 import Inspections from '../Inspections/Inspections'
 
 export default class ProjectDashboard extends Component{
@@ -18,6 +18,7 @@ export default class ProjectDashboard extends Component{
     this.getProjectDetails=this.getProjectDetails.bind(this)
     this.handlePortletClick=this.handlePortletClick.bind(this)
     this.portlets=this.portlets.bind(this)
+
     // this.handleTileClick=this.handleTileClick.bind(this)
   }
 
@@ -75,11 +76,13 @@ export default class ProjectDashboard extends Component{
       <div className="project-dashboard">
         <div className="project-name">
           {this.props.name}
+          <button className="buttons-gr btn_sm">CHANGE PROJECT</button>
         </div>
         <div className="project-mainNav">
-          <button onClick={this.handlePortletClick}>Track</button>
-          <button onClick={this.handlePortletClick}>Fees & Payments</button>
-          <button onClick={this.handlePortletClick}>Inspections</button>
+          <button onClick={this.handlePortletClick} className="text-md">TRACK</button>
+          <button onClick={this.handlePortletClick} className="text-md">FEES & PAYMENTS</button>
+          <button onClick={this.handlePortletClick} className="text-md">INSPECTIONS</button>
+          <button onClick={this.handlePortletClick} className="text-md">COMMUNICATIONS</button>
         </div>
 
         {currenPortlet}

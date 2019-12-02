@@ -46,7 +46,14 @@ class RecordsList extends  Component{
   render(){
     const recordLabels=this.props.records.map((record, index)=>{
       return(
-        <Record getRecordInfo={this.props.getRecordInfo} key={index} id={record.id} customId={record.customId} alias={record.type.alias} current={record.id===this.props.current.id}
+        <Record
+        getRecordInfo={this.props.getRecordInfo}
+        key={index}
+        id={record.id}
+        customId={record.customId}
+        alias={record.type.alias}
+        projRecords={this.props.projRecords}
+        current={record.id===this.props.current.id}
         handleCheckboxChange={this.addToCheckedRecords}
         home={this.props.home}/>
         )
