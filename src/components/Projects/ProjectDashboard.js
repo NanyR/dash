@@ -25,6 +25,9 @@ export default class ProjectDashboard extends Component{
   componentDidMount(){
     this.getProjectDetails(this.props.projRecords)
   }
+  // componentDidUpdate(){
+  //   this.getProjectDetails(this.props.projRecords)
+  // }
 
   getProjectDetails(recs){
     let records=recs;
@@ -61,7 +64,7 @@ export default class ProjectDashboard extends Component{
       case 'track':
         return (<Activity data={this.state.pWorkflows} />);
       case 'fees & payments':
-          return (<Fees data={this.state.pFees} />);
+          return (<Fees data={this.state.pFees} addToCart={this.props.addToCart}/>);
       case 'inspections':
             return (<Inspections data={this.state.pInspections}/>)
     }

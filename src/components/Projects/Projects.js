@@ -29,6 +29,7 @@ const Projects =(props)=>{
         records={props.records}
         className='current-project'
         current={true}
+        addToCart={props.addToCart}
         addRecordsToProject={props.addRecordsToProject}/>
       :
       <div>

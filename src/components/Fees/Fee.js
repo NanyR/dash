@@ -11,7 +11,14 @@ class Fee extends Component{
 
   handleCheckboxChange(e){
     let add= e.target.checked;
-    this.props.addToFees(this.props.data.id, add)
+    let fee= {
+      id: this.props.data.id,
+      amount:this.props.data.amount,
+      recordId:this.props.data.recordId.id,
+      description:this.props.data.description.value,
+      qty:this.props.data.quantity
+    }
+    this.props.addToFees(fee, add)
   }
 // const Fee =(props)=>{
 

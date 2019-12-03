@@ -38,6 +38,7 @@ export default class Project extends Component{
         name={this.props.name}
         proId={this.props.proId}
         projRecords={this.props.projRecords}
+        addToCart={this.props.addToCart}
         />
 
         <RecordsList

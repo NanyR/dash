@@ -12,21 +12,27 @@ class Fees extends Component{
     this.state={
       feesToAdd:[]
     }
-    this.addToFees=this.addToFees.bind(this)
+    this.addToFees=this.addToFees.bind(this);
+    this.handleShoppingCartAdd=this.handleShoppingCartAdd.bind(this)
   }
 
-  addToFees(id, add){
+  addToFees(nFee, add){
     if(add){
       this.setState({
-        feesToAdd:[...this.state.feesToAdd, id]
+        feesToAdd:[...this.state.feesToAdd, nFee]
       })
     }else{
-      let idx= this.state.feesToAdd.findIndex((fee)=> fee===id);
+      let idx= this.state.feesToAdd.findIndex((fee)=> fee.id===nFee.id);
       this.setState({
         feesToAdd:[...this.state.feesToAdd.slice(0, idx),
           ...this.state.feesToAdd.slice(idx+1)]
       })
     }
+  }
+
+  handleShoppingCartAdd(e){
+      e.preventDefault();
+      this.props.addToCart(this.state.feesToAdd)
   }
 
 
@@ -55,7 +61,7 @@ class Fees extends Component{
       return (
         <div className="details-container">
           <div className="details-container-title">
-            <button><AddShoppingCart /></button>
+            <button onClick={this.handleShoppingCartAdd}><AddShoppingCart /></button>
           </div>
           <table className="text-sm">
           <tbody>

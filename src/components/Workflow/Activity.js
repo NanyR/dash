@@ -73,7 +73,7 @@ class Activity extends Component{
         const actionReq = activeWStatus.map((rec)=>{
           return(
             rec.filter((task)=>{
-               return task.status.value.toLowerCase().includes("required")
+               return (task.status.value.toLowerCase().includes("required") || task.status.value.toLowerCase().includes("due"))
             })
           )
         })

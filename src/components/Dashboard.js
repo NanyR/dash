@@ -8,7 +8,8 @@ import MainNav from './MainNav.js'
 import Login from './Login.js'
 import Username from './Username.js'
 import Projects from './Projects/Projects.js';
-import RecordsList from './Records/RecordsList.js'
+import RecordsList from './Records/RecordsList.js';
+import ShoppingCart from './Fees/ShoppingCart.js';
 import '../Dashboard.css';
 
 
@@ -26,6 +27,7 @@ class Dashboard extends Component{
       myRecords:[],
       projects:[],
       portlet:'',
+      shoppingCart:[],
       showMyRecords:false
     }
 
@@ -39,7 +41,11 @@ class Dashboard extends Component{
     this.resetRecords=this.resetRecords.bind(this);
     this.getMyRecords=this.getMyRecords.bind(this);
     this.addProject=this.addProject.bind(this);
-    this.addRecordsToProject=this.addRecordsToProject.bind(this)
+    this.addRecordsToProject=this.addRecordsToProject.bind(this);
+    this.addToCart=this.addToCart.bind(this);
+    this.removeFromCart=this.removeFromCart.bind(this);
+    this.changePortlet=this.changePortlet.bind(this);
+    this.handlePortletChange=this.handlePortletChange.bind(this)
   }
 
   // componentDidMount(){
@@ -56,6 +62,7 @@ class Dashboard extends Component{
   }
 
 
+
   changeProject(projectN){
     var pro = this.state.projects.find((proj)=>proj._id===projectN);
     this.setState({
@@ -64,13 +71,40 @@ class Dashboard extends Component{
     })
   }
 
+  addToCart(fees){
+    // go through each fee object in array, filter out fees that have an id that is included in the current shoppingCart
+    let diffFees=fees.filter((fee)=>{
+      return ((this.state.shoppingCart.findIndex((scF)=>scF.id===fee.id)) < 0);
+    })
+    this.setState({
+      shoppingCart:[...this.state.shoppingCart, ...diffFees]
+    })
+    //update the state of shoppingCart with the new fees
+  }
+
+  removeFromCart(id){
+    let idx=this.state.shoppingCart.findIndex(fee=>fee.id===id);
+    this.setState({
+      shoppingCart:[...this.state.shoppingCart.slice(1, idx),
+        ...this.state.shoppingCart.slice(idx+1)]
+    })
+  }
+
   resetCurrentProject(){
     this.setState({
         currentProject:Object.assign({}, []),
-        currentRecord:Object.assign({}, {}),
+        currentRecord:Object.assign({}, {})
         // currentProject:''
     })
   }
+
+  changePortlet(portletName){
+    this.resetCurrentProject();
+    this.setState({
+      portlet:portletName
+    })
+  }
+
   resetRecords(){
     this.setState({
         currentRecord:Object.assign({}, {}),
@@ -181,6 +215,46 @@ class Dashboard extends Component{
 
   }
 
+  handlePortletChange(){
+    let portlet= this.state.portlet
+    switch (portlet) {
+      case 'home':
+        return (
+          <Projects
+          projects={this.state.projects}
+          addProject={this.addProject}
+          changeProject={this.changeProject}
+          currentProject={this.state.currentProject}
+          agency={this.state.agency}
+          records={this.state.myRecords}
+          getRecordInfo={this.getRecordSingle}
+          addRecordsToProject={this.addRecordsToProject}
+          addToCart={this.addToCart}/>
+        )
+        break;
+      case 'cart':
+        return (
+          <ShoppingCart
+          items={this.state.shoppingCart}
+          removeItem={this.removeFromCart}
+          />
+        )
+        break;
+      default:
+        return (
+          <Projects
+          projects={this.state.projects}
+          addProject={this.addProject}
+          changeProject={this.changeProject}
+          currentProject={this.state.currentProject}
+          agency={this.state.agency}
+          records={this.state.myRecords}
+          getRecordInfo={this.getRecordSingle}
+          addRecordsToProject={this.addRecordsToProject}
+          addToCart={this.addToCart}/>
+        )
+    }
+  }
 
 
   handleLogout(e){
@@ -203,25 +277,20 @@ class Dashboard extends Component{
 
 
 render(){
+  let currentPort= this.handlePortletChange()
   return(
     <div className="Dashboard">
       {this.state.user ?
         <div className="main-container">
           <MainNav
             handleLogout={this.handleLogout}
-            resetCurrentProject={this.resetCurrentProject}/>
+            resetCurrentProject={this.resetCurrentProject}
+            changePortlet={this.changePortlet}
+            />
         <div className="main-dash">
             <Username
             username={this.state.user} />
-            <Projects
-            projects={this.state.projects}
-            addProject={this.addProject}
-            changeProject={this.changeProject}
-            currentProject={this.state.currentProject}
-            agency={this.state.agency}
-            records={this.state.myRecords}
-            getRecordInfo={this.getRecordSingle}
-            addRecordsToProject={this.addRecordsToProject}/>
+            {currentPort}
             {this.state.currentProject ? null :
               <RecordsList
               records={this.state.myRecords}
